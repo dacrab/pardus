@@ -91,7 +91,6 @@ const steps = [
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) {
     const lines = document.querySelectorAll<HTMLElement>("#process [data-line]");
-    gsap.set(lines, { y: "110%" });
     ScrollTrigger.batch(lines, {
       onEnter: (els) =>
         gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),

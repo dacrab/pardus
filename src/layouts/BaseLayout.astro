@@ -21,6 +21,20 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script is:inline>
+      // Mark JS as available BEFORE first paint so animated elements stay hidden
+      // until GSAP takes over. Without this they flash visible for a frame.
+      document.documentElement.classList.add("js");
+    </script>
+    <noscript>
+      <style>
+        .reveal-line > span,
+        [data-fade] {
+          transform: none !important;
+          opacity: 1 !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <slot />

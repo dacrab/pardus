@@ -57,7 +57,7 @@
       <div class="col-span-12 md:col-span-6 md:col-start-7">
         <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
           <img
-            src="https://images.unsplash.com/photo-1561591203-d6a11b34b1d2?auto=format&fit=crop&w=1200&q=80"
+            src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1200&q=80"
             alt="Stone terrace overlooking the sea"
             class="h-full w-full object-cover"
             loading="lazy"
@@ -82,7 +82,6 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) {
     const lines = document.querySelectorAll<HTMLElement>("#visit [data-line]");
-    gsap.set(lines, { y: "110%" });
     ScrollTrigger.batch(lines, {
       onEnter: (els) =>
         gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),

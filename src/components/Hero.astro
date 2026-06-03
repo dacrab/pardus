@@ -85,11 +85,11 @@
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) {
-    const lines = document.querySelectorAll<HTMLElement>("[data-line]");
-    const fades = document.querySelectorAll<HTMLElement>("[data-fade]");
+    const lines = document.querySelectorAll<HTMLElement>("#hero [data-line]");
+    const fades = document.querySelectorAll<HTMLElement>("#hero [data-fade]");
 
-    gsap.set(lines, { y: "110%" });
-    gsap.set(fades, { opacity: 0, y: 24 });
+    // Initial state is defined in CSS via html.js .reveal-line > span / [data-fade]
+    // so there's no flash of visible content before this script runs.
 
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
     tl.to(lines, { y: "0%", duration: 1.4, stagger: 0.1, delay: 0.2 }).to(

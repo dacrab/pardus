@@ -10,7 +10,7 @@ const wines = [
     bottles: "1,180 bottles",
     notes: ["Wild fennel", "Salt-rind", "Quince", "Wet stone"],
     price: "€38",
-    img: "https://images.unsplash.com/photo-1566995541428-f7b1ed1d5d2b?auto=format&fit=crop&w=900&q=80",
+    img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=80",
   },
   {
     n: "02",
@@ -153,7 +153,6 @@ const wines = [
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) {
     const lines = document.querySelectorAll<HTMLElement>("#wines [data-line]");
-    gsap.set(lines, { y: "110%" });
     ScrollTrigger.batch(lines, {
       onEnter: (els) =>
         gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),

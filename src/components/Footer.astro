@@ -89,8 +89,6 @@ const year = new Date().getFullYear();
   if (!reduce) {
     const lines = document.querySelectorAll<HTMLElement>("footer [data-line]");
     const fades = document.querySelectorAll<HTMLElement>("footer [data-fade]");
-    gsap.set(lines, { y: "110%" });
-    gsap.set(fades, { opacity: 0, y: 20 });
     ScrollTrigger.batch(lines, {
       onEnter: (els) =>
         gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),

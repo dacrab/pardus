@@ -125,8 +125,21 @@
   }
   .reveal-line > span {
     display: block;
-    transform: translateY(110%);
     will-change: transform;
+  }
+  html.js .reveal-line > span {
+    transform: translateY(110%);
+  }
+  html.js [data-fade] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal-line > span,
+    html.js [data-fade] {
+      transform: none;
+      opacity: 1;
+    }
   }
 
   @media (max-width: 1024px) {

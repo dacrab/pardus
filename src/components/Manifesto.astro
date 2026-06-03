@@ -66,9 +66,6 @@
     const lines = document.querySelectorAll<HTMLElement>("#manifesto [data-line]");
     const fades = document.querySelectorAll<HTMLElement>("#manifesto [data-fade]");
 
-    gsap.set(lines, { y: "110%" });
-    gsap.set(fades, { opacity: 0, y: 30 });
-
     ScrollTrigger.batch(lines, {
       onEnter: (els) => {
         gsap.to(els, {

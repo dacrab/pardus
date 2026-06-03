@@ -32,7 +32,7 @@ const facts = [
       <div class="col-span-12 md:col-span-7">
         <div class="aspect-[4/5] overflow-hidden md:aspect-[16/11]">
           <img
-            src="https://images.unsplash.com/photo-1559849912-3c0a4abe34c2?auto=format&fit=crop&w=1400&q=80"
+            src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=1400&q=80"
             alt="Terraced vineyard on a hillside"
             class="h-full w-full object-cover"
             loading="lazy"
@@ -54,7 +54,7 @@ const facts = [
         </div>
         <div class="aspect-[3/4] overflow-hidden md:mt-16">
           <img
-            src="https://images.unsplash.com/photo-1474649107449-ea4c014b7c9f?auto=format&fit=crop&w=700&q=80"
+            src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=700&q=80"
             alt="Hands holding grapes"
             class="h-full w-full object-cover"
             loading="lazy"
@@ -94,7 +94,6 @@ const facts = [
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!reduce) {
     const lines = document.querySelectorAll<HTMLElement>("#land [data-line]");
-    gsap.set(lines, { y: "110%" });
     ScrollTrigger.batch(lines, {
       onEnter: (els) =>
         gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),
