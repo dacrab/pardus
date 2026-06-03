@@ -1,0 +1,101 @@
+---
+const steps = [
+  {
+    n: "I",
+    title: "Hand harvest",
+    body: "Three passes through each parcel over ten days. Grapes are picked into 18kg crates, never into the bin trailer. Sorted at the vine, not at the winery.",
+    span: "Late July — early September",
+  },
+  {
+    n: "II",
+    title: "Whole-bunch press",
+    body: "Press cycle lasts six to eight hours. The juice is settled overnight in stainless and racked by gravity. No pumps, no centrifuges, no shortcuts.",
+    span: "August — September",
+  },
+  {
+    n: "III",
+    title: "Wild ferment",
+    body: "Fermentation begins on its own, in old clay amphora or concrete egg. Native yeasts only. Temperatures follow the cellar, not a thermostat.",
+    span: "September — November",
+  },
+  {
+    n: "IV",
+    title: "Time on the lees",
+    body: "Eleven months of nothing. The wines rest in vessel, in cellar, in silence. Bâtonnage once a month. No bâtonnage for reds.",
+    span: "October — August",
+  },
+  {
+    n: "V",
+    title: "Bottle, unfined",
+    body: "A single racking by gravity. Bottled with no fining, no filtration, and 12mg/L of sulfur at most. Labels applied by hand, one at a time.",
+    span: "Following autumn",
+  },
+];
+---
+
+<section id="process" class="relative bg-[var(--color-clay-deep)] py-32 text-[var(--color-bone)] md:py-48">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 md:col-span-2">
+        <p class="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
+          § 04 — The Process
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-9 md:col-start-4">
+        <h2
+          class="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-balance"
+        >
+          <span class="reveal-line"><span data-line>Twelve months.</span></span>
+          <span class="reveal-line"><span data-line class="italic opacity-70">Five acts.</span></span>
+          <span class="reveal-line"><span data-line>One bottle.</span></span>
+        </h2>
+      </div>
+    </div>
+
+    <ol class="mt-24 space-y-px">
+      {
+        steps.map((s) => (
+          <li class="group grid grid-cols-12 items-baseline gap-6 border-t border-[var(--color-bone)]/15 py-10 transition-colors hover:bg-[var(--color-ink)] md:py-12">
+            <div class="col-span-2 md:col-span-1">
+              <div class="font-display text-5xl italic text-[var(--color-bone)]/30 transition-colors group-hover:text-[var(--color-clay)] md:text-6xl">
+                {s.n}
+              </div>
+            </div>
+            <div class="col-span-10 md:col-span-4">
+              <h3 class="font-display text-3xl leading-tight md:text-4xl">
+                {s.title}
+              </h3>
+            </div>
+            <div class="col-span-12 md:col-span-5">
+              <p class="font-display text-lg leading-snug opacity-90 md:text-xl">
+                {s.body}
+              </p>
+            </div>
+            <div class="col-span-12 md:col-span-2 md:text-right">
+              <div class="font-mono text-[10px] uppercase tracking-[0.3em] opacity-60">
+                {s.span}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    const lines = document.querySelectorAll<HTMLElement>("#process [data-line]");
+    gsap.set(lines, { y: "110%" });
+    ScrollTrigger.batch(lines, {
+      onEnter: (els) =>
+        gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),
+      start: "top 85%",
+    });
+  }
+</script>

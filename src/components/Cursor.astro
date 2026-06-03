@@ -1,0 +1,34 @@
+---
+---
+
+<div class="cursor" data-cursor></div>
+
+<script>
+  const cursor = document.querySelector("[data-cursor]") as HTMLElement | null;
+  if (cursor && window.matchMedia("(min-width: 1024px)").matches) {
+    let tx = 0;
+    let ty = 0;
+    let cx = 0;
+    let cy = 0;
+    document.addEventListener("mousemove", (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+    });
+
+    const tick = () => {
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+      requestAnimationFrame(tick);
+    };
+    tick();
+
+    const hoverables = document.querySelectorAll("a, button, [data-hover]");
+    hoverables.forEach((el) => {
+      el.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
+      el.addEventListener("mouseleave", () =>
+        cursor.classList.remove("is-hover"),
+      );
+    });
+  }
+</script>

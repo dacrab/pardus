@@ -1,0 +1,177 @@
+---
+const wines = [
+  {
+    n: "01",
+    name: "Pardus Bianco",
+    sub: "Assyrtiko · Malagousia",
+    year: "2023",
+    abv: "12.5%",
+    skin: "14 days on skins",
+    bottles: "1,180 bottles",
+    notes: ["Wild fennel", "Salt-rind", "Quince", "Wet stone"],
+    price: "€38",
+    img: "https://images.unsplash.com/photo-1566995541428-f7b1ed1d5d2b?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    n: "02",
+    name: "Pardus Rosso",
+    sub: "Mavrotragano · Voudomato",
+    year: "2022",
+    abv: "13.0%",
+    skin: "21 days on skins",
+    bottles: "820 bottles",
+    notes: ["Sour cherry", "Dried rose", "Black tea", "Iron"],
+    price: "€44",
+    img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    n: "03",
+    name: "Pardus Pet-Nat",
+    sub: "Assyrtiko · Muscat",
+    year: "2023",
+    abv: "11.5%",
+    skin: "Ancestral, disgorged by hand",
+    bottles: "640 bottles",
+    notes: ["Bergamot", "Pear skin", "Yeast", "Sea air"],
+    price: "€32",
+    img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&w=900&q=80",
+  },
+  {
+    n: "04",
+    name: "Pardus Amphora",
+    sub: "Mavrotragano, old vines",
+    year: "2021",
+    abv: "12.5%",
+    skin: "11 months in clay amphora",
+    bottles: "480 bottles",
+    notes: ["Pomegranate", "Tobacco", "Tar", "Dried herbs"],
+    price: "€68",
+    img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?auto=format&fit=crop&w=900&q=80",
+  },
+];
+---
+
+<section id="wines" class="relative bg-[var(--color-bone)] py-32 md:py-48">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
+    <div class="grid grid-cols-12 items-end gap-6">
+      <div class="col-span-12 md:col-span-7">
+        <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-ink-soft)]">
+          § 03 — The Wines
+        </p>
+        <h2
+          class="mt-6 font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-[var(--color-ink)]"
+        >
+          <span class="reveal-line"><span data-line>Four wines,</span></span>
+          <span class="reveal-line"><span data-line class="italic text-[var(--color-clay)]">one vineyard,</span></span>
+          <span class="reveal-line"><span data-line>no compromises.</span></span>
+        </h2>
+      </div>
+      <div class="col-span-12 md:col-span-4 md:col-start-9">
+        <p class="font-display text-lg leading-snug text-[var(--color-ink-soft)]">
+          Each parcel is harvested, fermented, and bottled separately. We do not blend away the year. The bottle on your table is the season it came from, nothing more.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-24 space-y-32">
+      {
+        wines.map((w, i) => (
+          <article
+            class={`grid grid-cols-12 items-center gap-6 md:gap-10 ${i % 2 === 1 ? "md:[direction:rtl]" : ""}`}
+            data-wine-card
+          >
+            <div class={`col-span-12 md:col-span-6 ${i % 2 === 1 ? "md:[direction:ltr]" : ""}`}>
+              <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
+                <img
+                  src={w.img}
+                  alt={w.name}
+                  class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+                  loading="lazy"
+                />
+                <div class="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-bone)] mix-blend-difference">
+                  Cuvée / {w.n}
+                </div>
+              </div>
+            </div>
+
+            <div class={`col-span-12 md:col-span-5 ${i % 2 === 1 ? "md:col-start-8 md:[direction:ltr]" : "md:col-start-8"}`}>
+              <div class="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-ink-soft)]">
+                {w.year} · {w.abv}
+              </div>
+              <h3 class="mt-3 font-display text-5xl leading-[0.95] tracking-[-0.04em] text-[var(--color-ink)] md:text-6xl">
+                {w.name}
+              </h3>
+              <p class="mt-2 font-display text-lg italic text-[var(--color-clay)]">
+                {w.sub}
+              </p>
+
+              <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-[0.15em] text-[var(--color-ink-soft)]">
+                <div class="border-t border-[var(--color-ink)]/20 pt-2">
+                  <dt class="opacity-50">Maceration</dt>
+                  <dd class="mt-1 normal-case text-[var(--color-ink)]">{w.skin}</dd>
+                </div>
+                <div class="border-t border-[var(--color-ink)]/20 pt-2">
+                  <dt class="opacity-50">Production</dt>
+                  <dd class="mt-1 normal-case text-[var(--color-ink)]">{w.bottles}</dd>
+                </div>
+              </dl>
+
+              <ul class="mt-8 flex flex-wrap gap-2">
+                {w.notes.map((n) => (
+                  <li class="border border-[var(--color-ink)]/25 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-ink)]">
+                    {n}
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-10 flex items-end justify-between">
+                <div>
+                  <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-ink-soft)]">Allocation</div>
+                  <div class="font-display text-3xl text-[var(--color-ink)]">{w.price}</div>
+                </div>
+                <a
+                  href="#visit"
+                  class="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-ink)]"
+                >
+                  Request bottle
+                  <span class="block h-px w-6 bg-current transition-all group-hover:w-10" />
+                </a>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    const lines = document.querySelectorAll<HTMLElement>("#wines [data-line]");
+    gsap.set(lines, { y: "110%" });
+    ScrollTrigger.batch(lines, {
+      onEnter: (els) =>
+        gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),
+      start: "top 85%",
+    });
+
+    gsap.utils.toArray<HTMLElement>("[data-wine-card]").forEach((card) => {
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.1,
+          ease: "expo.out",
+          scrollTrigger: { trigger: card, start: "top 85%" },
+        },
+      );
+    });
+  }
+</script>
