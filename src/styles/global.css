@@ -147,7 +147,7 @@
   .reveal-line {
     overflow: hidden;
     display: block;
-    padding-bottom: 0.15em;
+    padding: 0 0.1em 0.15em;
   }
   .reveal-line > span {
     display: block;
