@@ -31,12 +31,12 @@
     font-family: var(--font-sans);
     font-weight: 400;
     overflow-x: clip;
-    cursor: none;
+    cursor: auto;
   }
 
-  @media (max-width: 1024px) {
+  @media (hover: hover) and (pointer: fine) {
     body {
-      cursor: auto;
+      cursor: none;
     }
   }
 
@@ -78,32 +78,35 @@
     background-position: -1px -1px;
   }
 
-  .grain {
-    position: relative;
-  }
-  .grain::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
 
   .marquee {
     display: flex;
     overflow: hidden;
-    gap: 4rem;
+    gap: 1.5rem;
     user-select: none;
     padding-block: 4px;
+  }
+  @media (min-width: 768px) {
+    .marquee {
+      gap: 4rem;
+    }
   }
   .marquee__track {
     flex-shrink: 0;
     display: flex;
-    gap: 4rem;
+    gap: 1.5rem;
     align-items: center;
     animation: marquee 40s linear infinite;
+  }
+  @media (min-width: 768px) {
+    .marquee__track {
+      gap: 4rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__track {
+      animation: none;
+    }
   }
   @keyframes marquee {
     from {
@@ -115,18 +118,24 @@
   }
 
   .cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--color-clay);
-    pointer-events: none;
-    z-index: 9999;
-    mix-blend-mode: difference;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, background 0.3s;
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cursor {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-clay);
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
   }
   .cursor.is-hover {
     width: 60px;
@@ -159,9 +168,14 @@
     scale: 1.15;
   }
 
-  @media (max-width: 1024px) {
-    .cursor {
-      display: none;
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-line > span,
+    [data-fade],
+    [data-stagger],
+    [data-zoom] {
+      transform: none;
+      opacity: 1;
+      scale: 1;
     }
   }
 }

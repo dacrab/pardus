@@ -28,14 +28,96 @@ const links = [
 
   <a
     href="#visit"
-    class="group flex items-center gap-2 label-mono-sm opacity-90 transition hover:opacity-100"
+    class="group hidden items-center gap-2 label-mono-sm opacity-90 transition hover:opacity-100 md:flex"
   >
     <span>Reserve a tasting</span>
     <span class="block h-px w-6 bg-current transition-all group-hover:w-10"></span>
   </a>
+
+  <button
+    class="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+    data-menu-btn
+    aria-label="Toggle navigation"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+    type="button"
+  >
+    <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
+    <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
+  </button>
 </header>
 
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-ink px-6 text-bone opacity-0 transition-opacity duration-300 pointer-events-none md:hidden"
+  data-menu-overlay
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site navigation"
+>
+  {
+    links.map((l) => (
+      <a
+        href={l.href}
+        class="py-3 font-display text-4xl tracking-[-0.04em] transition active:opacity-60 hover:text-clay"
+        data-menu-link
+      >
+        {l.label}
+      </a>
+    ))
+  }
+  <a
+    href="#visit"
+    class="mt-6 flex items-center gap-2 py-3 font-mono text-[11px] uppercase tracking-[0.3em] transition active:opacity-60 hover:text-clay"
+    data-menu-link
+  >
+    Reserve a tasting
+  </a>
+</div>
+
 <script>
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
+  const overlay = document.querySelector<HTMLElement>("[data-menu-overlay]");
+  const bars = document.querySelectorAll<HTMLElement>("[data-menu-bar]");
+  const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
+
+  if (btn && overlay) {
+    btn.addEventListener("click", () => {
+      overlay.classList.toggle("opacity-0");
+      overlay.classList.toggle("pointer-events-none");
+      bars.forEach((bar) => {
+        bar.classList.toggle("rotate-45");
+        bar.classList.toggle("translate-y-[3.5px]");
+      });
+      const open = !overlay.classList.contains("opacity-0");
+      btn.setAttribute("aria-expanded", String(open));
+      document.body.style.overflow = open ? "hidden" : "";
+    });
+
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        overlay.classList.add("opacity-0", "pointer-events-none");
+        bars.forEach((bar) => {
+          bar.classList.remove("rotate-45", "translate-y-[3.5px]");
+        });
+        btn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !overlay.classList.contains("opacity-0")) {
+        overlay.classList.add("opacity-0", "pointer-events-none");
+        bars.forEach((bar) => {
+          bar.classList.remove("rotate-45", "translate-y-[3.5px]");
+        });
+        btn.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+        btn.focus();
+      }
+    });
+  }
+
   const navLinks = document.querySelectorAll<HTMLElement>("[data-nav-link]");
   const sections = [...navLinks].map((a) => {
     const href = a.getAttribute("href");

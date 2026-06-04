@@ -15,9 +15,9 @@ const items = [
   <div class="marquee" data-marquee>
     {
       [0, 1].map(() => (
-        <div class="marquee__track font-display text-4xl italic md:text-6xl">
+        <div class="marquee__track font-display text-lg italic md:text-2xl lg:text-6xl">
           {items.map((item) => (
-            <span class="flex items-center gap-12 whitespace-nowrap">
+            <span class="flex items-center gap-6 whitespace-nowrap md:gap-12">
               {item}
               <span class="text-clay">✺</span>
             </span>

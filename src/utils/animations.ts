@@ -7,135 +7,55 @@ export function shouldAnimate(): boolean {
   return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function animateLineReveal(
-  containerSelector: string,
-  options?: {
-    start?: string;
-    duration?: number;
-    stagger?: number;
-    ease?: string;
-  },
-) {
-  const lines = document.querySelectorAll<HTMLElement>(
-    `${containerSelector} [data-line]`,
-  );
-  if (!lines.length) return;
-  const opts = {
-    start: "top 85%",
-    duration: 1.1,
-    stagger: 0.1,
-    ease: "expo.out",
-    ...options,
-  };
-  ScrollTrigger.batch(lines, {
-    onEnter: (els) =>
-      gsap.to(els, {
-        y: "0%",
-        duration: opts.duration,
-        stagger: opts.stagger,
-        ease: opts.ease,
-      }),
-    start: opts.start,
-  });
-}
+type AnimType = "line" | "fade" | "zoom" | "stagger";
 
-export function animateFadeIn(
-  containerSelector: string,
-  options?: {
-    start?: string;
-    duration?: number;
-    stagger?: number;
-    ease?: string;
-  },
-) {
-  const fades = document.querySelectorAll<HTMLElement>(
-    `${containerSelector} [data-fade]`,
-  );
-  if (!fades.length) return;
-  const opts = {
-    start: "top 90%",
-    duration: 1,
-    stagger: 0.1,
-    ease: "expo.out",
-    ...options,
-  };
-  ScrollTrigger.batch(fades, {
-    onEnter: (els) =>
-      gsap.to(els, {
-        opacity: 1,
-        y: 0,
-        duration: opts.duration,
-        stagger: opts.stagger,
-        ease: opts.ease,
-      }),
-    start: opts.start,
-  });
-}
+type AnimOpts = {
+  start?: string;
+  duration?: number;
+  stagger?: number;
+  ease?: string;
+};
 
-export function animateZoomIn(
-  containerSelector: string,
-  options?: {
-    start?: string;
-    duration?: number;
-    stagger?: number;
-    ease?: string;
+const DEFAULTS: Record<
+  AnimType,
+  { selector: string; vars: Record<string, unknown>; opts: AnimOpts }
+> = {
+  line: {
+    selector: "[data-line]",
+    vars: { y: "0%" },
+    opts: { start: "top 85%", duration: 1.1, stagger: 0.1, ease: "expo.out" },
   },
-) {
-  const els = document.querySelectorAll<HTMLElement>(
-    `${containerSelector} [data-zoom]`,
-  );
+  fade: {
+    selector: "[data-fade]",
+    vars: { opacity: 1, y: 0 },
+    opts: { start: "top 90%", duration: 1, stagger: 0.1, ease: "expo.out" },
+  },
+  zoom: {
+    selector: "[data-zoom]",
+    vars: { opacity: 1, scale: 1 },
+    opts: { start: "top 85%", duration: 1.2, stagger: 0.15, ease: "expo.out" },
+  },
+  stagger: {
+    selector: "[data-stagger]",
+    vars: { opacity: 1, y: 0 },
+    opts: { start: "top 85%", duration: 0.9, stagger: 0.08, ease: "expo.out" },
+  },
+};
+
+function animate(container: string, type: AnimType, overrides?: AnimOpts) {
+  const { selector, vars, opts } = DEFAULTS[type];
+  const els = document.querySelectorAll<HTMLElement>(`${container} ${selector}`);
   if (!els.length) return;
-  const opts = {
-    start: "top 85%",
-    duration: 1.2,
-    stagger: 0.15,
-    ease: "expo.out",
-    ...options,
-  };
+  const merged = { ...opts, ...overrides };
   ScrollTrigger.batch(els, {
-    onEnter: (batch) =>
-      gsap.to(batch, {
-        opacity: 1,
-        scale: 1,
-        duration: opts.duration,
-        stagger: opts.stagger,
-        ease: opts.ease,
-      }),
-    start: opts.start,
+    onEnter: (batch) => gsap.to(batch, { ...vars, duration: merged.duration, stagger: merged.stagger, ease: merged.ease }),
+    start: merged.start,
   });
 }
 
-export function animateStaggerList(
-  containerSelector: string,
-  options?: {
-    start?: string;
-    duration?: number;
-    stagger?: number;
-    ease?: string;
-  },
-) {
-  const els = document.querySelectorAll<HTMLElement>(
-    `${containerSelector} [data-stagger]`,
-  );
-  if (!els.length) return;
-  const opts = {
-    start: "top 85%",
-    duration: 0.9,
-    stagger: 0.08,
-    ease: "expo.out",
-    ...options,
-  };
-  ScrollTrigger.batch(els, {
-    onEnter: (batch) =>
-      gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        duration: opts.duration,
-        stagger: opts.stagger,
-        ease: opts.ease,
-      }),
-    start: opts.start,
-  });
-}
+export const animateLineReveal = (c: string, o?: AnimOpts) => animate(c, "line", o);
+export const animateFadeIn = (c: string, o?: AnimOpts) => animate(c, "fade", o);
+export const animateZoomIn = (c: string, o?: AnimOpts) => animate(c, "zoom", o);
+export const animateStaggerList = (c: string, o?: AnimOpts) => animate(c, "stagger", o);
 
 

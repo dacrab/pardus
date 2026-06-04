@@ -33,7 +33,7 @@ const steps = [
 ];
 ---
 
-<section id="process" class="relative bg-clay-deep py-32 text-bone md:py-48">
+<section id="process" class="relative bg-clay-deep py-16 text-bone md:py-32 lg:py-48">
   <div class="mx-auto max-w-[1600px] px-6 md:px-10">
     <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 md:col-span-2">
@@ -43,7 +43,7 @@ const steps = [
       </div>
       <div class="col-span-12 md:col-span-9 md:col-start-4">
         <h2
-          class="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-balance"
+          class="font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance md:text-5xl lg:text-7xl"
         >
           <span class="reveal-line"><span data-line>Twelve months.</span></span>
           <span class="reveal-line"><span data-line class="italic text-clay">Five acts.</span></span>
@@ -52,22 +52,22 @@ const steps = [
       </div>
     </div>
 
-    <ol class="mt-24 space-y-px">
+    <ol class="mt-12 space-y-px md:mt-20 lg:mt-24">
       {
         steps.map((s) => (
-          <li class="group grid grid-cols-12 items-baseline gap-6 border-t border-bone/15 py-10 transition-colors hover:bg-ink md:py-12" data-stagger>
+          <li class="group border-t border-bone/15 py-6 transition-colors hover:bg-ink md:grid md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 lg:py-12" data-stagger>
             <div class="col-span-2 md:col-span-1">
-              <div class="font-display text-5xl italic text-bone/30 transition-colors group-hover:text-clay md:text-6xl">
+              <div class="font-display text-3xl italic text-bone/30 transition-colors group-hover:text-clay md:text-4xl lg:text-6xl">
                 {s.n}
               </div>
             </div>
             <div class="col-span-10 md:col-span-4">
-              <h3 class="font-display text-3xl leading-tight md:text-4xl">
+              <h3 class="font-display text-xl leading-tight md:text-2xl lg:text-4xl">
                 {s.title}
               </h3>
             </div>
             <div class="col-span-12 md:col-span-5">
-              <p class="font-display text-lg leading-snug opacity-90 md:text-xl">
+              <p class="font-display text-sm leading-snug opacity-90 md:text-base lg:text-xl">
                 {s.body}
               </p>
             </div>

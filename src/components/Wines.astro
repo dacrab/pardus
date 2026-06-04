@@ -51,7 +51,7 @@ const wines = [
 ];
 ---
 
-<section id="wines" class="relative bg-bone py-32 md:py-48">
+<section id="wines" class="relative bg-bone py-16 md:py-32 lg:py-48">
   <div class="mx-auto max-w-[1600px] px-6 md:px-10">
     <div class="grid grid-cols-12 items-end gap-6">
       <div class="col-span-12 md:col-span-7">
@@ -59,7 +59,7 @@ const wines = [
           § 03 — The Wines
         </p>
         <h2
-          class="mt-6 font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-balance text-ink"
+          class="mt-4 font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance text-ink md:mt-6 md:text-5xl lg:text-7xl"
         >
           <span class="reveal-line"><span data-line>Four wines,</span></span>
           <span class="reveal-line"><span data-line class="italic text-clay">one vineyard,</span></span>
@@ -67,13 +67,13 @@ const wines = [
         </h2>
       </div>
       <div class="col-span-12 md:col-span-4 md:col-start-9">
-        <p class="font-display text-lg leading-snug text-ink-soft">
+        <p class="font-display text-base leading-snug text-ink-soft md:text-lg">
           Each parcel is harvested, fermented, and bottled separately. We do not blend away the year. The bottle on your table is the season it came from, nothing more.
         </p>
       </div>
     </div>
 
-    <div class="mt-24 space-y-32">
+    <div class="mt-12 space-y-16 md:mt-20 lg:mt-24 md:space-y-24 lg:space-y-32">
       {
         wines.map((w, i) => (
           <article
@@ -98,14 +98,14 @@ const wines = [
               <div class="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-soft">
                 {w.year} · {w.abv}
               </div>
-              <h3 class="mt-3 font-display text-5xl leading-[0.95] tracking-[-0.04em] text-ink md:text-6xl">
+              <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
                 {w.name}
               </h3>
-              <p class="mt-2 font-display text-lg italic text-clay">
+              <p class="mt-1 font-display text-base italic text-clay md:mt-2 md:text-lg">
                 {w.sub}
               </p>
 
-              <dl class="mt-8 grid grid-cols-2 gap-x-6 gap-y-3 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft">
+              <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
                 <div class="border-t border-ink/20 pt-2">
                   <dt class="opacity-50">Maceration</dt>
                   <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
@@ -116,18 +116,18 @@ const wines = [
                 </div>
               </dl>
 
-              <ul class="mt-8 flex flex-wrap gap-2">
+              <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
                 {w.notes.map((n) => (
-                  <li class="border border-ink/25 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-ink">
+                  <li class="border border-ink/25 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink md:px-3 md:py-1">
                     {n}
                   </li>
                 ))}
               </ul>
 
-              <div class="mt-10 flex items-end justify-between">
+              <div class="mt-6 flex items-end justify-between md:mt-10">
                 <div>
                   <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-soft">Allocation</div>
-                  <div class="font-display text-3xl text-ink">{w.price}</div>
+                  <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
                 </div>
                 <a
                   href="#visit"
