@@ -1,0 +1,50 @@
+---
+---
+
+<section id="estate" class="relative bg-bone py-24 md:py-32">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
+    <div class="grid grid-cols-12 items-center gap-10 md:gap-16">
+      <div class="col-span-12 md:col-span-5">
+        <dl class="space-y-4 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-soft">
+          <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
+            <dt class="opacity-50">Founded</dt>
+            <dd class="font-display text-xl normal-case text-ink">2019</dd>
+          </div>
+          <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
+            <dt class="opacity-50">Hectares</dt>
+            <dd class="font-display text-xl normal-case text-ink">3.2</dd>
+          </div>
+          <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
+            <dt class="opacity-50">Altitude</dt>
+            <dd class="font-display text-xl normal-case text-ink">612m</dd>
+          </div>
+          <div class="flex justify-between" data-stagger>
+            <dt class="opacity-50">Cases / yr</dt>
+            <dd class="font-display text-xl normal-case text-ink">1,800</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="col-span-12 md:col-span-6 md:col-start-7">
+        <div class="aspect-[16/9] overflow-hidden bg-ink md:aspect-[4/3]">
+          <img
+            src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80"
+            alt="Vineyard at dusk"
+            class="h-full w-full object-cover"
+            loading="lazy"
+            data-zoom
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { shouldAnimate, animateStaggerList, animateZoomIn } from "../utils/animations";
+
+  if (shouldAnimate()) {
+    animateStaggerList("#estate");
+    animateZoomIn("#estate");
+  }
+</script>

@@ -9,17 +9,17 @@ const links = [
 ---
 
 <header
-  class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-[var(--color-bone)] md:px-10"
+  class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bone md:px-10"
 >
   <a href="#" class="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em]">
-    <span class="block h-2 w-2 rounded-full bg-[var(--color-clay)]"></span>
+    <span class="block h-2 w-2 rounded-full bg-clay"></span>
     Pardus / MMXXVI
   </a>
 
-  <nav class="hidden items-center gap-8 font-mono text-[11px] uppercase tracking-[0.25em] md:flex">
+  <nav class="hidden items-center gap-8 label-mono-sm md:flex" data-nav>
     {
       links.map((l) => (
-        <a href={l.href} class="opacity-70 transition hover:opacity-100">
+        <a href={l.href} class="opacity-70 transition hover:opacity-100" data-nav-link>
           {l.label}
         </a>
       ))
@@ -28,9 +28,34 @@ const links = [
 
   <a
     href="#visit"
-    class="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] opacity-90 transition hover:opacity-100"
+    class="group flex items-center gap-2 label-mono-sm opacity-90 transition hover:opacity-100"
   >
     <span>Reserve a tasting</span>
     <span class="block h-px w-6 bg-current transition-all group-hover:w-10"></span>
   </a>
 </header>
+
+<script>
+  const navLinks = document.querySelectorAll<HTMLElement>("[data-nav-link]");
+  const sections = [...navLinks].map((a) => {
+    const href = a.getAttribute("href");
+    return href ? document.getElementById(href.replace("#", "")) : null;
+  }).filter(Boolean) as HTMLElement[];
+
+  if (sections.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        let active = "";
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) active = `#${entry.target.id}`;
+        });
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === active;
+          link.style.opacity = isActive ? "1" : "0.7";
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    );
+    sections.forEach((s) => observer.observe(s));
+  }
+</script>

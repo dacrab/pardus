@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Cursor from "../components/Cursor.astro";
 import Hero from "../components/Hero.astro";
 import Marquee from "../components/Marquee.astro";
+import Estate from "../components/Estate.astro";
 import Manifesto from "../components/Manifesto.astro";
 import Land from "../components/Land.astro";
 import Wines from "../components/Wines.astro";
@@ -16,8 +17,9 @@ import "../styles/global.css";
 <BaseLayout>
   <Cursor />
   <Nav />
-  <main>
+  <main id="main">
     <Hero />
+    <Estate />
     <Marquee />
     <Manifesto />
     <Land />
@@ -32,11 +34,9 @@ import "../styles/global.css";
   import Lenis from "lenis";
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { shouldAnimate } from "../utils/animations";
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce) {
+  if (shouldAnimate()) {
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),

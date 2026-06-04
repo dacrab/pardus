@@ -1,46 +1,46 @@
 ---
 ---
 
-<section id="visit" class="relative bg-[var(--color-bone)] py-32 md:py-48">
+<section id="visit" class="relative bg-bone py-32 md:py-48">
   <div class="mx-auto max-w-[1600px] px-6 md:px-10">
     <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 md:col-span-2">
-        <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-ink-soft)]">
+        <p class="label-mono text-ink-soft">
           § 05 — Visit
         </p>
       </div>
       <div class="col-span-12 md:col-span-9 md:col-start-4">
         <h2
-          class="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-[var(--color-ink)]"
+          class="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-balance text-ink"
         >
           <span class="reveal-line"><span data-line>Come up the hill.</span></span>
-          <span class="reveal-line"><span data-line class="italic text-[var(--color-clay)]">We pour until sundown.</span></span>
+          <span class="reveal-line"><span data-line class="italic text-clay">We pour until sundown.</span></span>
         </h2>
       </div>
     </div>
 
     <div class="mt-20 grid grid-cols-12 gap-6">
       <div class="col-span-12 md:col-span-5">
-        <p class="font-display text-2xl leading-snug text-[var(--color-ink)] md:text-3xl">
+        <p class="font-display text-2xl leading-snug text-ink md:text-3xl">
           Tastings are by appointment, for no more than eight people, on a stone terrace overlooking the village and the western sea. We pour what is open. We do not pour what is not.
         </p>
 
-        <dl class="mt-12 space-y-6 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-ink-soft)]">
-          <div class="flex justify-between border-t border-[var(--color-ink)]/15 pt-3">
+        <dl class="mt-12 space-y-6 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-soft">
+          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
             <dt>Hours</dt>
-            <dd class="text-right normal-case text-[var(--color-ink)]">Wed — Sun, 16:00 to sundown</dd>
+            <dd class="text-right normal-case text-ink">Wed — Sun, 16:00 to sundown</dd>
           </div>
-          <div class="flex justify-between border-t border-[var(--color-ink)]/15 pt-3">
+          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
             <dt>Duration</dt>
-            <dd class="text-right normal-case text-[var(--color-ink)]">90 minutes · five wines · bread & olive oil</dd>
+            <dd class="text-right normal-case text-ink">90 minutes · five wines · bread & olive oil</dd>
           </div>
-          <div class="flex justify-between border-t border-[var(--color-ink)]/15 pt-3">
+          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
             <dt>Price</dt>
-            <dd class="text-right normal-case text-[var(--color-ink)]">€45 per person, waived on purchase</dd>
+            <dd class="text-right normal-case text-ink">€45 per person, waived on purchase</dd>
           </div>
-          <div class="flex justify-between border-t border-[var(--color-ink)]/15 pt-3">
+          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
             <dt>Address</dt>
-            <dd class="text-right normal-case text-[var(--color-ink)]">
+            <dd class="text-right normal-case text-ink">
               Ano Vouno, 84401<br />Cyclades, Greece
             </dd>
           </div>
@@ -48,22 +48,24 @@
 
         <a
           href="mailto:visit@pardus.wine"
-          class="mt-12 inline-flex items-center gap-3 bg-[var(--color-ink)] px-8 py-4 font-mono text-[11px] uppercase tracking-[0.3em] text-[var(--color-bone)] transition-colors hover:bg-[var(--color-clay)]"
+          class="mt-12 inline-flex items-center gap-3 bg-ink px-8 py-4 font-mono text-[11px] uppercase tracking-[0.3em] text-bone transition-colors hover:bg-clay"
+          data-fade
         >
           Request a tasting →
         </a>
       </div>
 
       <div class="col-span-12 md:col-span-6 md:col-start-7">
-        <div class="relative aspect-[4/5] overflow-hidden bg-[var(--color-ink)]">
+        <div class="relative aspect-[4/5] overflow-hidden bg-ink">
           <img
             src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1200&q=80"
             alt="Stone terrace overlooking the sea"
             class="h-full w-full object-cover"
             loading="lazy"
+            data-zoom
           />
-          <div class="absolute bottom-0 left-0 right-0 bg-[var(--color-ink)]/85 p-6 backdrop-blur-sm">
-            <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-bone)]">
+          <div class="absolute bottom-0 left-0 right-0 bg-ink/85 p-6 backdrop-blur-sm">
+            <div class="flex items-center justify-between label-mono text-bone">
               <span>Tasting terrace</span>
               <span>38.2146° N, 22.1234° E</span>
             </div>
@@ -75,17 +77,12 @@
 </section>
 
 <script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  gsap.registerPlugin(ScrollTrigger);
+  import { shouldAnimate, animateLineReveal, animateZoomIn, animateStaggerList, animateFadeIn } from "../utils/animations";
 
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce) {
-    const lines = document.querySelectorAll<HTMLElement>("#visit [data-line]");
-    ScrollTrigger.batch(lines, {
-      onEnter: (els) =>
-        gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),
-      start: "top 85%",
-    });
+  if (shouldAnimate()) {
+    animateLineReveal("#visit");
+    animateZoomIn("#visit");
+    animateStaggerList("#visit");
+    animateFadeIn("#visit");
   }
 </script>

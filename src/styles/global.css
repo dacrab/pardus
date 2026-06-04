@@ -30,7 +30,7 @@
   body {
     font-family: var(--font-sans);
     font-weight: 400;
-    overflow-x: hidden;
+    overflow-x: clip;
     cursor: none;
   }
 
@@ -56,6 +56,20 @@
 }
 
 @layer components {
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+  }
+
+  .label-mono-sm {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
   .grid-noise {
     background-image:
       linear-gradient(var(--color-ink) 1px, transparent 1px),
@@ -82,6 +96,7 @@
     overflow: hidden;
     gap: 4rem;
     user-select: none;
+    padding-block: 4px;
   }
   .marquee__track {
     flex-shrink: 0;
@@ -125,21 +140,23 @@
   }
   .reveal-line > span {
     display: block;
+    transform: translateY(110%);
     will-change: transform;
   }
-  html.js .reveal-line > span {
-    transform: translateY(110%);
-  }
-  html.js [data-fade] {
+
+  [data-fade] {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(30px);
   }
-  @media (prefers-reduced-motion: reduce) {
-    html.js .reveal-line > span,
-    html.js [data-fade] {
-      transform: none;
-      opacity: 1;
-    }
+
+  [data-stagger] {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  [data-zoom] {
+    opacity: 0;
+    scale: 1.15;
   }
 
   @media (max-width: 1024px) {
