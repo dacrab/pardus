@@ -84,11 +84,12 @@
     overflow: hidden;
     gap: 1.5rem;
     user-select: none;
-    padding-block: 4px;
+    padding-block: 0.5rem;
   }
   @media (min-width: 768px) {
     .marquee {
       gap: 4rem;
+      padding-block: 1rem;
     }
   }
   .marquee__track {
@@ -146,6 +147,7 @@
   .reveal-line {
     overflow: hidden;
     display: block;
+    padding-bottom: 0.15em;
   }
   .reveal-line > span {
     display: block;
