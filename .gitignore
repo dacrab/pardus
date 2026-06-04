@@ -5,4 +5,4 @@ dist/
 .env.production
 .DS_Store
 .vscode/
-.vercel/
+.vercel
