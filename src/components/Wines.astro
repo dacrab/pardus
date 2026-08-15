@@ -1,4 +1,8 @@
 ---
+import Section from "./Section.astro";
+import RevealLine from "./RevealLine.astro";
+import { Image } from "astro:assets";
+
 const wines = [
   {
     n: "01",
@@ -10,7 +14,7 @@ const wines = [
     bottles: "1,180 bottles",
     notes: ["Wild fennel", "Salt-rind", "Quince", "Wet stone"],
     price: "€38",
-    img: "https://images.unsplash.com/photo-1764078383562-ec9b22343307?auto=format&fit=crop&w=900&q=80",
+    img: "https://images.unsplash.com/photo-1764078383562-ec9b22343307",
   },
   {
     n: "02",
@@ -22,7 +26,7 @@ const wines = [
     bottles: "820 bottles",
     notes: ["Sour cherry", "Dried rose", "Black tea", "Iron"],
     price: "€44",
-    img: "https://images.unsplash.com/photo-1474722883778-792e7990302f?auto=format&fit=crop&w=900&q=80",
+    img: "https://images.unsplash.com/photo-1474722883778-792e7990302f",
   },
   {
     n: "03",
@@ -34,7 +38,7 @@ const wines = [
     bottles: "640 bottles",
     notes: ["Bergamot", "Pear skin", "Yeast", "Sea air"],
     price: "€32",
-    img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&w=900&q=80",
+    img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0",
   },
   {
     n: "04",
@@ -46,24 +50,21 @@ const wines = [
     bottles: "480 bottles",
     notes: ["Pomegranate", "Tobacco", "Tar", "Dried herbs"],
     price: "€68",
-    img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?auto=format&fit=crop&w=900&q=80",
+    img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559",
   },
 ];
 ---
 
-<section id="wines" class="relative bg-bone py-16 md:py-32 lg:py-48">
-  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
-    <div class="grid grid-cols-12 items-end gap-6">
+<Section id="wines">
+  <div class="grid grid-cols-12 items-end gap-6">
       <div class="col-span-12 md:col-span-7">
         <p class="label-mono text-ink-soft">
           § 03 — The Wines
         </p>
-        <h2
-          class="mt-4 font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance text-ink md:mt-6 md:text-5xl lg:text-7xl"
-        >
-          <span class="reveal-line"><span data-line>Four wines,</span></span>
-          <span class="reveal-line"><span data-line class="italic text-clay">one vineyard,</span></span>
-          <span class="reveal-line"><span data-line>no compromises.</span></span>
+        <h2 class="section-title mt-4 md:mt-6">
+          <RevealLine>Four wines,</RevealLine>
+          <RevealLine class="italic text-clay">one vineyard,</RevealLine>
+          <RevealLine>no compromises.</RevealLine>
         </h2>
       </div>
       <div class="col-span-12 md:col-span-4 md:col-start-9">
@@ -78,24 +79,25 @@ const wines = [
         wines.map((w, i) => (
           <article
             class={`flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}
-            data-wine-card
+            data-fade
           >
             <div class="md:basis-1/2">
               <div class="relative aspect-[4/5] overflow-hidden bg-ink">
-                <img
+                <Image
                   src={w.img}
                   alt={w.name}
+                  width={800}
+                  height={1000}
                   class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-                  loading="lazy"
                 />
-                <div class="absolute left-4 top-4 font-mono text-[10px] uppercase tracking-[0.3em] text-bone mix-blend-difference">
+                <div class="absolute left-4 top-4 font-mono text-3xs uppercase tracking-micro-wide text-bone mix-blend-difference">
                   Cuvée / {w.n}
                 </div>
               </div>
             </div>
 
             <div class="md:basis-5/12">
-              <div class="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-soft">
+              <div class="font-mono text-3xs uppercase tracking-micro-wide text-ink-soft">
                 {w.year} · {w.abv}
               </div>
               <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
@@ -105,7 +107,7 @@ const wines = [
                 {w.sub}
               </p>
 
-              <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
+              <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-2xs uppercase tracking-[0.15em] text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
                 <div class="border-t border-ink/20 pt-2">
                   <dt class="opacity-50">Maceration</dt>
                   <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
@@ -118,7 +120,7 @@ const wines = [
 
               <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
                 {w.notes.map((n) => (
-                  <li class="border border-ink/25 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-ink md:px-3 md:py-1">
+                  <li class="border border-ink/25 px-2 py-0.5 font-mono text-3xs uppercase tracking-micro text-ink md:px-3 md:py-1">
                     {n}
                   </li>
                 ))}
@@ -126,12 +128,12 @@ const wines = [
 
               <div class="mt-6 flex items-end justify-between md:mt-10">
                 <div>
-                  <div class="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-soft">Allocation</div>
+                  <div class="font-mono text-3xs uppercase tracking-micro text-ink-soft">Allocation</div>
                   <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
                 </div>
                 <a
                   href="#visit"
-                  class="group flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.25em] text-ink"
+                  class="group flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.25em] text-ink"
                 >
                   Request bottle
                   <span class="block h-px w-6 bg-current transition-all group-hover:w-10" />
@@ -142,34 +144,13 @@ const wines = [
         ))
       }
     </div>
-  </div>
-</section>
+</Section>
 
 <script>
-  import gsap from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { shouldAnimate } from "../utils/animations";
+  import { whenMotionAllowed, animateLineReveal, animateFadeIn } from "../utils/animations";
 
-  if (shouldAnimate()) {
-    const lines = document.querySelectorAll<HTMLElement>("#wines [data-line]");
-    ScrollTrigger.batch(lines, {
-      onEnter: (els) =>
-        gsap.to(els, { y: "0%", duration: 1.1, stagger: 0.1, ease: "expo.out" }),
-      start: "top 85%",
-    });
-
-    gsap.utils.toArray<HTMLElement>("[data-wine-card]").forEach((card) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 80 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1.1,
-          ease: "expo.out",
-          scrollTrigger: { trigger: card, start: "top 85%" },
-        },
-      );
-    });
-  }
+  whenMotionAllowed(() => {
+    animateLineReveal("#wines");
+    animateFadeIn("#wines");
+  });
 </script>

@@ -1,20 +1,20 @@
 ---
+import Section from "./Section.astro";
+import RevealLine from "./RevealLine.astro";
+import { Image } from "astro:assets";
 ---
 
-<section id="visit" class="relative bg-bone py-16 md:py-32 lg:py-48">
-  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
-    <div class="grid grid-cols-12 gap-6">
+<Section id="visit">
+  <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 md:col-span-2">
         <p class="label-mono text-ink-soft">
           § 05 — Visit
         </p>
       </div>
       <div class="col-span-12 md:col-span-9 md:col-start-4">
-        <h2
-          class="font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance text-ink md:text-5xl lg:text-7xl"
-        >
-          <span class="reveal-line"><span data-line>Come up the hill.</span></span>
-          <span class="reveal-line"><span data-line class="italic text-clay">We pour until sundown.</span></span>
+        <h2 class="section-title">
+          <RevealLine>Come up the hill.</RevealLine>
+          <RevealLine class="italic text-clay">We pour until sundown.</RevealLine>
         </h2>
       </div>
     </div>
@@ -25,7 +25,7 @@
           Tastings are by appointment, for no more than eight people, on a stone terrace overlooking the village and the western sea. We pour what is open. We do not pour what is not.
         </p>
 
-        <dl class="mt-8 space-y-4 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-soft md:mt-12 md:space-y-6">
+        <dl class="mt-8 space-y-4 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-12 md:space-y-6">
           <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
             <dt>Hours</dt>
             <dd class="text-right normal-case text-ink">Wed — Sun, 16:00 to sundown</dd>
@@ -48,7 +48,7 @@
 
         <a
           href="mailto:visit@pardus.wine"
-          class="mt-8 inline-flex items-center gap-3 bg-ink px-8 py-4 font-mono text-[11px] uppercase tracking-[0.3em] text-bone transition-colors hover:bg-clay md:mt-12"
+          class="mt-8 inline-flex items-center gap-3 bg-ink px-8 py-4 font-mono text-2xs uppercase tracking-micro-wide text-bone transition-colors hover:bg-clay md:mt-12"
           data-fade
         >
           Request a tasting →
@@ -57,11 +57,12 @@
 
       <div class="col-span-12 md:col-span-6 md:col-start-7">
         <div class="relative aspect-[4/5] overflow-hidden bg-ink">
-          <img
-            src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95?auto=format&fit=crop&w=1200&q=80"
+          <Image
+            src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95"
             alt="Stone terrace overlooking the sea"
+            width={800}
+            height={1000}
             class="h-full w-full object-cover"
-            loading="lazy"
             data-zoom
           />
           <div class="absolute bottom-0 left-0 right-0 bg-ink/85 p-6 backdrop-blur-sm">
@@ -73,16 +74,15 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
+</Section>
 
 <script>
-  import { shouldAnimate, animateLineReveal, animateZoomIn, animateStaggerList, animateFadeIn } from "../utils/animations";
+  import { whenMotionAllowed, animateLineReveal, animateZoomIn, animateStaggerList, animateFadeIn } from "../utils/animations";
 
-  if (shouldAnimate()) {
+  whenMotionAllowed(() => {
     animateLineReveal("#visit");
     animateZoomIn("#visit");
     animateStaggerList("#visit");
     animateFadeIn("#visit");
-  }
+  });
 </script>

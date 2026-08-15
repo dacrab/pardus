@@ -3,8 +3,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function shouldAnimate(): boolean {
-  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const mm = gsap.matchMedia();
+
+export function whenMotionAllowed(cb: () => void | (() => void)): void {
+  mm.add("(prefers-reduced-motion: no-preference)", cb);
 }
 
 type AnimType = "line" | "fade" | "zoom" | "stagger";
@@ -57,5 +59,3 @@ export const animateLineReveal = (c: string, o?: AnimOpts) => animate(c, "line",
 export const animateFadeIn = (c: string, o?: AnimOpts) => animate(c, "fade", o);
 export const animateZoomIn = (c: string, o?: AnimOpts) => animate(c, "zoom", o);
 export const animateStaggerList = (c: string, o?: AnimOpts) => animate(c, "stagger", o);
-
-

@@ -1,4 +1,7 @@
 ---
+import Section from "./Section.astro";
+import RevealLine from "./RevealLine.astro";
+
 const steps = [
   {
     n: "I",
@@ -33,21 +36,18 @@ const steps = [
 ];
 ---
 
-<section id="process" class="relative bg-clay-deep py-16 text-bone md:py-32 lg:py-48">
-  <div class="mx-auto max-w-[1600px] px-6 md:px-10">
-    <div class="grid grid-cols-12 gap-6">
+<Section id="process" tone="clay">
+  <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 md:col-span-2">
         <p class="label-mono opacity-60">
           § 04 — The Process
         </p>
       </div>
       <div class="col-span-12 md:col-span-9 md:col-start-4">
-        <h2
-          class="font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance md:text-5xl lg:text-7xl"
-        >
-          <span class="reveal-line"><span data-line>Twelve months.</span></span>
-          <span class="reveal-line"><span data-line class="italic text-clay">Five acts.</span></span>
-          <span class="reveal-line"><span data-line>One bottle.</span></span>
+        <h2 class="section-title">
+          <RevealLine>Twelve months.</RevealLine>
+          <RevealLine class="italic text-clay">Five acts.</RevealLine>
+          <RevealLine>One bottle.</RevealLine>
         </h2>
       </div>
     </div>
@@ -80,14 +80,13 @@ const steps = [
         ))
       }
     </ol>
-  </div>
-</section>
+</Section>
 
 <script>
-  import { shouldAnimate, animateLineReveal, animateStaggerList } from "../utils/animations";
+  import { whenMotionAllowed, animateLineReveal, animateStaggerList } from "../utils/animations";
 
-  if (shouldAnimate()) {
+  whenMotionAllowed(() => {
     animateLineReveal("#process");
     animateStaggerList("#process", { stagger: 0.12 });
-  }
+  });
 </script>

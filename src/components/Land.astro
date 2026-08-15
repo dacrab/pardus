@@ -1,4 +1,8 @@
 ---
+import Section from "./Section.astro";
+import RevealLine from "./RevealLine.astro";
+import { Image } from "astro:assets";
+
 const facts = [
   { k: "Soil", v: "Schist, limestone, decomposed clay" },
   { k: "Aspect", v: "North-west, exposed to the meltemi" },
@@ -7,8 +11,8 @@ const facts = [
 ];
 ---
 
-<section id="land" class="relative bg-ink py-16 text-bone md:py-32 lg:py-48">
-  <div class="mx-auto grid max-w-[1600px] grid-cols-12 gap-6 px-6 md:px-10">
+<Section id="land" tone="ink">
+  <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 md:col-span-2">
       <div class="label-mono text-olive">
         <div>§ 02</div>
@@ -17,58 +21,60 @@ const facts = [
     </div>
 
     <div class="col-span-12 md:col-span-9 md:col-start-4">
-      <p class="font-mono text-[11px] uppercase tracking-[0.3em] opacity-60">
+      <p class="font-mono text-2xs uppercase tracking-micro-wide opacity-60">
         Coordinates — 38.2146° N, 22.1234° E
       </p>
-      <h2
-        class="mt-4 font-display text-4xl leading-[0.95] tracking-[-0.04em] text-balance md:mt-6 md:text-5xl lg:text-7xl"
-      >
-        <span class="reveal-line"><span data-line>Six hundred and twelve metres above</span></span>
-        <span class="reveal-line"><span data-line class="italic text-clay">a sea that does not forgive.</span></span>
+      <h2 class="section-title mt-4 md:mt-6">
+        <RevealLine>Six hundred and twelve metres above</RevealLine>
+        <RevealLine class="italic text-clay">a sea that does not forgive.</RevealLine>
       </h2>
     </div>
 
     <div class="col-span-12 mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
       <div class="col-span-12 md:col-span-7">
         <div class="aspect-[4/5] overflow-hidden md:aspect-[16/11]">
-          <img
-            src="https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=1400&q=80"
+          <Image
+            src="https://images.unsplash.com/photo-1505252585461-04db1eb84625"
             alt="Terraced vineyard on a hillside"
+            width={800}
+            height={1000}
             class="h-full w-full object-cover"
-            loading="lazy"
             data-zoom
           />
         </div>
-        <p class="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] opacity-60">
+        <p class="mt-3 font-mono text-3xs uppercase tracking-micro opacity-60">
           Fig. 02 — Terraces above the village of Ano Vouno
         </p>
       </div>
 
       <div class="col-span-12 grid grid-cols-2 gap-3 md:col-span-4 md:col-start-9 md:gap-6">
         <div class="aspect-[3/4] overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?auto=format&fit=crop&w=700&q=80"
+          <Image
+            src="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559"
             alt="Old stone wall in vineyard"
+            width={600}
+            height={800}
             class="h-full w-full object-cover grayscale"
-            loading="lazy"
             data-zoom
           />
         </div>
         <div class="aspect-[3/4] overflow-hidden md:mt-16">
-          <img
-            src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=700&q=80"
+          <Image
+            src="https://images.unsplash.com/photo-1543007630-9710e4a00a20"
             alt="Hands holding grapes"
+            width={600}
+            height={800}
             class="h-full w-full object-cover"
-            loading="lazy"
             data-zoom
           />
         </div>
         <div class="col-span-2 mt-3 md:mt-6">
-          <img
-            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
+          <Image
+            src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
             alt="Grapes on the vine"
+            width={1600}
+            height={900}
             class="aspect-[16/9] w-full object-cover"
-            loading="lazy"
             data-zoom
           />
         </div>
@@ -88,14 +94,14 @@ const facts = [
       }
     </div>
   </div>
-</section>
+</Section>
 
 <script>
-  import { shouldAnimate, animateLineReveal, animateStaggerList, animateZoomIn } from "../utils/animations";
+  import { whenMotionAllowed, animateLineReveal, animateStaggerList, animateZoomIn } from "../utils/animations";
 
-  if (shouldAnimate()) {
+  whenMotionAllowed(() => {
     animateLineReveal("#land");
     animateStaggerList("#land");
     animateZoomIn("#land");
-  }
+  });
 </script>

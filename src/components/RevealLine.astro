@@ -1,0 +1,11 @@
+---
+interface Props {
+  class?: string;
+  wrapperClass?: string;
+}
+const { class: innerClass = "", wrapperClass = "" } = Astro.props;
+---
+
+<span class={`reveal-line ${wrapperClass}`.trim()}>
+  <span data-line class={innerClass || undefined}><slot /></span>
+</span>

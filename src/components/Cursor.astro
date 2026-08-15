@@ -4,31 +4,24 @@
 <div class="cursor" data-cursor></div>
 
 <script>
-  const cursor = document.querySelector("[data-cursor]") as HTMLElement | null;
-  if (cursor && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    let tx = 0;
-    let ty = 0;
-    let cx = 0;
-    let cy = 0;
-    document.addEventListener("mousemove", (e) => {
-      tx = e.clientX;
-      ty = e.clientY;
-    });
+  import gsap from "gsap";
 
-    const tick = () => {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
-      cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-      requestAnimationFrame(tick);
-    };
-    tick();
+  gsap.matchMedia().add("(hover: hover) and (pointer: fine)", () => {
+    const cursor = document.querySelector<HTMLElement>("[data-cursor]");
+    if (!cursor) return;
+
+    gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.5, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.5, ease: "power3" });
+    document.addEventListener("mousemove", (e) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+    });
 
     const hoverables = document.querySelectorAll("a, button, [data-hover]");
     hoverables.forEach((el) => {
       el.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
-      el.addEventListener("mouseleave", () =>
-        cursor.classList.remove("is-hover"),
-      );
+      el.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
     });
-  }
+  });
 </script>

@@ -11,12 +11,12 @@ const links = [
 <header
   class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bone md:px-10"
 >
-  <a href="#" class="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.3em]">
+  <a href="#" class="flex items-center gap-3 font-mono text-xs uppercase tracking-micro-wide">
     <span class="block h-2 w-2 rounded-full bg-clay"></span>
     Pardus / MMXXVI
   </a>
 
-  <nav class="hidden items-center gap-8 label-mono-sm md:flex" data-nav>
+  <nav class="hidden items-center gap-8 label-mono-sm md:flex">
     {
       links.map((l) => (
         <a href={l.href} class="opacity-70 transition hover:opacity-100" data-nav-link>
@@ -68,7 +68,7 @@ const links = [
   }
   <a
     href="#visit"
-    class="mt-6 flex items-center gap-2 py-3 font-mono text-[11px] uppercase tracking-[0.3em] transition active:opacity-60 hover:text-clay"
+    class="mt-6 flex items-center gap-2 py-3 font-mono text-2xs uppercase tracking-micro-wide transition active:opacity-60 hover:text-clay"
     data-menu-link
   >
     Reserve a tasting
@@ -82,47 +82,35 @@ const links = [
   const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
 
   if (btn && overlay) {
+    const close = () => {
+      overlay.classList.add("opacity-0", "pointer-events-none");
+      bars.forEach((bar) => bar.classList.remove("rotate-45", "translate-y-[3.5px]"));
+      btn.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    };
+
     btn.addEventListener("click", () => {
-      overlay.classList.toggle("opacity-0");
-      overlay.classList.toggle("pointer-events-none");
-      bars.forEach((bar) => {
-        bar.classList.toggle("rotate-45");
-        bar.classList.toggle("translate-y-[3.5px]");
-      });
-      const open = !overlay.classList.contains("opacity-0");
-      btn.setAttribute("aria-expanded", String(open));
-      document.body.style.overflow = open ? "hidden" : "";
+      if (!overlay.classList.contains("opacity-0")) return close();
+      overlay.classList.remove("opacity-0", "pointer-events-none");
+      bars.forEach((bar) => bar.classList.add("rotate-45", "translate-y-[3.5px]"));
+      btn.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
     });
 
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        bars.forEach((bar) => {
-          bar.classList.remove("rotate-45", "translate-y-[3.5px]");
-        });
-        btn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      });
-    });
+    menuLinks.forEach((link) => link.addEventListener("click", close));
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !overlay.classList.contains("opacity-0")) {
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        bars.forEach((bar) => {
-          bar.classList.remove("rotate-45", "translate-y-[3.5px]");
-        });
-        btn.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+        close();
         btn.focus();
       }
     });
   }
 
-  const navLinks = document.querySelectorAll<HTMLElement>("[data-nav-link]");
-  const sections = [...navLinks].map((a) => {
-    const href = a.getAttribute("href");
-    return href ? document.getElementById(href.replace("#", "")) : null;
-  }).filter(Boolean) as HTMLElement[];
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+  const sections = [...navLinks]
+    .map((a) => document.getElementById(a.getAttribute("href")?.slice(1) ?? ""))
+    .filter((s): s is HTMLElement => !!s);
 
   if (sections.length && "IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
