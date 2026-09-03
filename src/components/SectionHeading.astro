@@ -1,0 +1,26 @@
+---
+interface Props {
+  number: string;
+  label: string;
+  tone?: "ink" | "olive" | "muted";
+  className?: string;
+}
+const { number, label, tone = "ink", className = "" } = Astro.props;
+const toneClass = {
+  ink: "text-ink-soft",
+  olive: "text-olive",
+  muted: "opacity-60",
+}[tone];
+---
+
+<div class={`grid grid-cols-12 gap-6 ${className}`}>
+  <div class="col-span-12 md:col-span-2">
+    <div class={`label-mono md:sticky md:top-32 ${toneClass}`}>
+      <div>§ {number}</div>
+      <div class="mt-1">— {label}</div>
+    </div>
+  </div>
+  <div class="col-span-12 md:col-span-9 md:col-start-4">
+    <slot />
+  </div>
+</div>

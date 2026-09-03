@@ -1,5 +1,6 @@
 ---
 import Section from "./Section.astro";
+import SectionHeading from "./SectionHeading.astro";
 import RevealLine from "./RevealLine.astro";
 
 const steps = [
@@ -37,56 +38,40 @@ const steps = [
 ---
 
 <Section id="process" tone="clay">
-  <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-2">
-        <p class="label-mono opacity-60">
-          § 04 — The Process
-        </p>
-      </div>
-      <div class="col-span-12 md:col-span-9 md:col-start-4">
-        <h2 class="section-title">
-          <RevealLine>Twelve months.</RevealLine>
-          <RevealLine class="italic text-clay">Five acts.</RevealLine>
-          <RevealLine>One bottle.</RevealLine>
-        </h2>
-      </div>
-    </div>
+  <SectionHeading number="04" label="The Process" tone="muted">
+    <h2 class="section-title">
+      <RevealLine>Twelve months.</RevealLine>
+      <RevealLine class="italic text-clay">Five acts.</RevealLine>
+      <RevealLine>One bottle.</RevealLine>
+    </h2>
+  </SectionHeading>
 
-    <ol class="mt-12 space-y-px md:mt-20 lg:mt-24">
-      {
-        steps.map((s) => (
-          <li class="group border-t border-bone/15 py-6 transition-colors hover:bg-ink md:grid md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 lg:py-12" data-stagger>
-            <div class="col-span-2 md:col-span-1">
-              <div class="font-display text-3xl italic text-bone/30 transition-colors group-hover:text-clay md:text-4xl lg:text-6xl">
-                {s.n}
-              </div>
+  <ol class="mt-12 space-y-px md:mt-20 lg:mt-24">
+    {
+      steps.map((s) => (
+        <li class="group border-t border-bone/15 py-6 transition-colors hover:bg-ink md:grid md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 lg:py-12" data-stagger>
+          <div class="col-span-2 md:col-span-1">
+            <div class="font-display text-3xl italic text-bone/30 transition-colors group-hover:text-clay md:text-4xl lg:text-6xl">
+              {s.n}
             </div>
-            <div class="col-span-10 md:col-span-4">
-              <h3 class="font-display text-xl leading-tight md:text-2xl lg:text-4xl">
-                {s.title}
-              </h3>
+          </div>
+          <div class="col-span-10 md:col-span-4">
+            <h3 class="font-display text-xl leading-tight md:text-2xl lg:text-4xl">
+              {s.title}
+            </h3>
+          </div>
+          <div class="col-span-12 md:col-span-5">
+            <p class="font-display text-sm leading-snug opacity-90 md:text-base lg:text-xl">
+              {s.body}
+            </p>
+          </div>
+          <div class="col-span-12 md:col-span-2 md:text-right">
+            <div class="label-mono opacity-60">
+              {s.span}
             </div>
-            <div class="col-span-12 md:col-span-5">
-              <p class="font-display text-sm leading-snug opacity-90 md:text-base lg:text-xl">
-                {s.body}
-              </p>
-            </div>
-            <div class="col-span-12 md:col-span-2 md:text-right">
-              <div class="label-mono opacity-60">
-                {s.span}
-              </div>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
 </Section>
-
-<script>
-  import { whenMotionAllowed, animateLineReveal, animateStaggerList } from "../utils/animations";
-
-  whenMotionAllowed(() => {
-    animateLineReveal("#process");
-    animateStaggerList("#process", { stagger: 0.12 });
-  });
-</script>

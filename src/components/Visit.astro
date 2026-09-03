@@ -1,88 +1,71 @@
 ---
 import Section from "./Section.astro";
+import SectionHeading from "./SectionHeading.astro";
 import RevealLine from "./RevealLine.astro";
 import { Image } from "astro:assets";
 ---
 
 <Section id="visit">
-  <div class="grid grid-cols-12 gap-6">
-      <div class="col-span-12 md:col-span-2">
-        <p class="label-mono text-ink-soft">
-          § 05 — Visit
-        </p>
-      </div>
-      <div class="col-span-12 md:col-span-9 md:col-start-4">
-        <h2 class="section-title">
-          <RevealLine>Come up the hill.</RevealLine>
-          <RevealLine class="italic text-clay">We pour until sundown.</RevealLine>
-        </h2>
-      </div>
+  <SectionHeading number="05" label="Visit">
+    <h2 class="section-title">
+      <RevealLine>Come up the hill.</RevealLine>
+      <RevealLine class="italic text-clay">We pour until sundown.</RevealLine>
+    </h2>
+  </SectionHeading>
+
+  <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
+    <div class="col-span-12 md:col-span-5">
+      <p class="font-display text-lg leading-snug text-ink md:text-xl lg:text-2xl">
+        Tastings are by appointment, for no more than eight people, on a stone terrace overlooking the village and the western sea. We pour what is open. We do not pour what is not.
+      </p>
+
+      <dl class="mt-8 space-y-4 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-12 md:space-y-6">
+        <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
+          <dt>Hours</dt>
+          <dd class="text-right normal-case text-ink">Wed — Sun, 16:00 to sundown</dd>
+        </div>
+        <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
+          <dt>Duration</dt>
+          <dd class="text-right normal-case text-ink">90 minutes · five wines · bread & olive oil</dd>
+        </div>
+        <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
+          <dt>Price</dt>
+          <dd class="text-right normal-case text-ink">€45 per person, waived on purchase</dd>
+        </div>
+        <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
+          <dt>Address</dt>
+          <dd class="text-right normal-case text-ink">
+            Ano Vouno, 84401<br />Cyclades, Greece
+          </dd>
+        </div>
+      </dl>
+
+      <a
+        href="mailto:visit@pardus.wine"
+        class="mt-8 inline-flex items-center gap-3 bg-ink px-8 py-4 font-mono text-2xs uppercase tracking-micro-wide text-bone transition-colors hover:bg-clay md:mt-12"
+        data-fade
+      >
+        Request a tasting →
+      </a>
     </div>
 
-    <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
-      <div class="col-span-12 md:col-span-5">
-        <p class="font-display text-lg leading-snug text-ink md:text-xl lg:text-2xl">
-          Tastings are by appointment, for no more than eight people, on a stone terrace overlooking the village and the western sea. We pour what is open. We do not pour what is not.
-        </p>
-
-        <dl class="mt-8 space-y-4 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-12 md:space-y-6">
-          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
-            <dt>Hours</dt>
-            <dd class="text-right normal-case text-ink">Wed — Sun, 16:00 to sundown</dd>
-          </div>
-          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
-            <dt>Duration</dt>
-            <dd class="text-right normal-case text-ink">90 minutes · five wines · bread & olive oil</dd>
-          </div>
-          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
-            <dt>Price</dt>
-            <dd class="text-right normal-case text-ink">€45 per person, waived on purchase</dd>
-          </div>
-          <div class="flex justify-between border-t border-ink/15 pt-3" data-stagger>
-            <dt>Address</dt>
-            <dd class="text-right normal-case text-ink">
-              Ano Vouno, 84401<br />Cyclades, Greece
-            </dd>
-          </div>
-        </dl>
-
-        <a
-          href="mailto:visit@pardus.wine"
-          class="mt-8 inline-flex items-center gap-3 bg-ink px-8 py-4 font-mono text-2xs uppercase tracking-micro-wide text-bone transition-colors hover:bg-clay md:mt-12"
-          data-fade
-        >
-          Request a tasting →
-        </a>
-      </div>
-
-      <div class="col-span-12 md:col-span-6 md:col-start-7">
-        <div class="relative aspect-[4/5] overflow-hidden bg-ink">
-          <Image
-            src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95"
-            alt="Stone terrace overlooking the sea"
-            width={800}
-            height={1000}
-            class="h-full w-full object-cover"
-            data-zoom
-          />
-          <div class="absolute bottom-0 left-0 right-0 bg-ink/85 p-6 backdrop-blur-sm">
-            <div class="flex items-center justify-between label-mono text-bone">
-              <span>Tasting terrace</span>
-              <span>38.2146° N, 22.1234° E</span>
-            </div>
+    <div class="col-span-12 md:col-span-6 md:col-start-7">
+      <div class="relative aspect-[4/5] overflow-hidden bg-ink">
+        <Image
+          src="https://images.unsplash.com/photo-1499529112087-3cb3b73cec95"
+          alt="Stone terrace overlooking the sea"
+          width={800}
+          height={1000}
+          class="h-full w-full object-cover"
+          data-zoom
+        />
+        <div class="absolute bottom-0 left-0 right-0 bg-ink/85 p-6 backdrop-blur-sm">
+          <div class="flex items-center justify-between label-mono text-bone">
+            <span>Tasting terrace</span>
+            <span>38.2146° N, 22.1234° E</span>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </Section>
-
-<script>
-  import { whenMotionAllowed, animateLineReveal, animateZoomIn, animateStaggerList, animateFadeIn } from "../utils/animations";
-
-  whenMotionAllowed(() => {
-    animateLineReveal("#visit");
-    animateZoomIn("#visit");
-    animateStaggerList("#visit");
-    animateFadeIn("#visit");
-  });
-</script>

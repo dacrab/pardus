@@ -1,62 +1,45 @@
 ---
 import Section from "./Section.astro";
+import SectionHeading from "./SectionHeading.astro";
 import RevealLine from "./RevealLine.astro";
 ---
 
 <Section id="manifesto">
-  <div class="grid grid-cols-12 gap-6">
-    <div class="col-span-12 md:col-span-2">
-      <div class="label-mono text-ink-soft md:sticky md:top-32">
-        <div>§ 01</div>
-        <div class="mt-1">— Manifesto</div>
+  <SectionHeading number="01" label="Manifesto">
+    <h2 class="section-title">
+      <RevealLine>We don't make wine.</RevealLine>
+      <RevealLine class="italic text-clay">We refuse to make</RevealLine>
+      <RevealLine>almost everything else.</RevealLine>
+    </h2>
+
+    <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
+      <div class="col-span-12 md:col-span-5">
+        <p
+          class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
+          data-fade
+        >
+          No oak chips. No selected yeasts. No enzymes, no acid corrections, no
+          sugar adjustments, no reverse osmosis, no spinning cones, no
+          cryoextraction. No new French barriques with their slow leak of
+          vanilla into a liquid we did not put there.
+        </p>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:col-start-7">
+        <p
+          class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
+          data-fade
+        >
+          We harvest by hand, ferment in old clay and concrete, and bottle
+          unfined and unfiltered. The vineyard is the recipe. The vintage is
+          the chef. We are, at best, the kitchen porter who does not get in
+          the way.
+        </p>
       </div>
     </div>
 
-    <div class="col-span-12 md:col-span-9 md:col-start-4">
-      <h2 class="section-title">
-        <RevealLine>We don't make wine.</RevealLine>
-        <RevealLine class="italic text-clay">We refuse to make</RevealLine>
-        <RevealLine>almost everything else.</RevealLine>
-      </h2>
-
-      <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
-        <div class="col-span-12 md:col-span-5">
-          <p
-            class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
-            data-fade
-          >
-            No oak chips. No selected yeasts. No enzymes, no acid corrections, no
-            sugar adjustments, no reverse osmosis, no spinning cones, no
-            cryoextraction. No new French barriques with their slow leak of
-            vanilla into a liquid we did not put there.
-          </p>
-        </div>
-        <div class="col-span-12 md:col-span-5 md:col-start-7">
-          <p
-            class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
-            data-fade
-          >
-            We harvest by hand, ferment in old clay and concrete, and bottle
-            unfined and unfiltered. The vineyard is the recipe. The vintage is
-            the chef. We are, at best, the kitchen porter who does not get in
-            the way.
-          </p>
-        </div>
-      </div>
-
-      <div class="mt-12 flex items-center gap-4 label-mono-sm text-ink-soft md:mt-20 lg:mt-24">
-        <span class="h-px w-16 bg-ink-soft"></span>
-        <span>— M. Halaris, winemaker</span>
-      </div>
+    <div class="mt-12 flex items-center gap-4 label-mono-sm text-ink-soft md:mt-20 lg:mt-24">
+      <span class="h-px w-16 bg-ink-soft"></span>
+      <span>— M. Halaris, winemaker</span>
     </div>
-  </div>
+  </SectionHeading>
 </Section>
-
-<script>
-  import { whenMotionAllowed, animateLineReveal, animateFadeIn } from "../utils/animations";
-
-  whenMotionAllowed(() => {
-    animateLineReveal("#manifesto", { duration: 1.2, stagger: 0.12 });
-    animateFadeIn("#manifesto");
-  });
-</script>

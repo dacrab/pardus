@@ -19,7 +19,11 @@ const links = [
   <nav class="hidden items-center gap-8 label-mono-sm md:flex">
     {
       links.map((l) => (
-        <a href={l.href} class="opacity-70 transition hover:opacity-100" data-nav-link>
+        <a
+          href={l.href}
+          class="relative py-1 opacity-70 transition after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform hover:opacity-100 hover:after:scale-x-100"
+          data-nav-link
+        >
           {l.label}
         </a>
       ))
@@ -37,7 +41,6 @@ const links = [
   <button
     class="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
     data-menu-btn
-    aria-label="Toggle navigation"
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -82,26 +85,27 @@ const links = [
   const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
 
   if (btn && overlay) {
-    const close = () => {
-      overlay.classList.add("opacity-0", "pointer-events-none");
-      bars.forEach((bar) => bar.classList.remove("rotate-45", "translate-y-[3.5px]"));
-      btn.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
+    const setOpen = (open: boolean) => {
+      overlay.classList.toggle("pointer-events-none", !open);
+      overlay.classList.toggle("opacity-0", !open);
+      bars.forEach((bar) => {
+        bar.classList.toggle("rotate-45", open);
+        bar.classList.toggle("translate-y-[3.5px]", open);
+      });
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      document.body.style.overflow = open ? "hidden" : "";
     };
 
     btn.addEventListener("click", () => {
-      if (!overlay.classList.contains("opacity-0")) return close();
-      overlay.classList.remove("opacity-0", "pointer-events-none");
-      bars.forEach((bar) => bar.classList.add("rotate-45", "translate-y-[3.5px]"));
-      btn.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
+      setOpen(overlay.classList.contains("opacity-0"));
     });
 
-    menuLinks.forEach((link) => link.addEventListener("click", close));
+    menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && !overlay.classList.contains("opacity-0")) {
-        close();
+        setOpen(false);
         btn.focus();
       }
     });
@@ -121,7 +125,8 @@ const links = [
         });
         navLinks.forEach((link) => {
           const isActive = link.getAttribute("href") === active;
-          link.style.opacity = isActive ? "1" : "0.7";
+          link.classList.toggle("opacity-100", isActive);
+          link.classList.toggle("after:scale-x-100", isActive);
         });
       },
       { rootMargin: "-40% 0px -55% 0px" },

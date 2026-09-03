@@ -40,12 +40,3 @@ import { Image } from "astro:assets";
     </div>
   </div>
 </Section>
-
-<script>
-  import { whenMotionAllowed, animateStaggerList, animateZoomIn } from "../utils/animations";
-
-  whenMotionAllowed(() => {
-    animateStaggerList("#estate");
-    animateZoomIn("#estate");
-  });
-</script>

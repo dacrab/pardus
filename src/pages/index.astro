@@ -34,7 +34,13 @@ import "../styles/global.css";
   import Lenis from "lenis";
   import gsap from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import { whenMotionAllowed } from "../utils/animations";
+  import {
+    whenMotionAllowed,
+    animateLineReveal,
+    animateFadeIn,
+    animateZoomIn,
+    animateStaggerList,
+  } from "../utils/animations";
 
   whenMotionAllowed(() => {
     const lenis = new Lenis({ duration: 1.1 });
@@ -54,6 +60,33 @@ import "../styles/global.css";
         }
       });
     });
+
+    animateLineReveal("#hero");
+    animateFadeIn("#hero");
+
+    animateStaggerList("#estate");
+    animateZoomIn("#estate");
+
+    animateLineReveal("#manifesto", { duration: 1.2, stagger: 0.12 });
+    animateFadeIn("#manifesto");
+
+    animateLineReveal("#land");
+    animateStaggerList("#land");
+    animateZoomIn("#land");
+
+    animateLineReveal("#wines");
+    animateFadeIn("#wines");
+
+    animateLineReveal("#process");
+    animateStaggerList("#process", { stagger: 0.12 });
+
+    animateLineReveal("#visit");
+    animateZoomIn("#visit");
+    animateStaggerList("#visit");
+    animateFadeIn("#visit");
+
+    animateLineReveal("#footer", { start: "top 90%" });
+    animateFadeIn("#footer", { start: "top 90%", duration: 0.9 });
 
     return () => lenis.destroy();
   });

@@ -1,5 +1,6 @@
 ---
 import Section from "./Section.astro";
+import SectionHeading from "./SectionHeading.astro";
 import RevealLine from "./RevealLine.astro";
 import { Image } from "astro:assets";
 
@@ -56,12 +57,10 @@ const wines = [
 ---
 
 <Section id="wines">
-  <div class="grid grid-cols-12 items-end gap-6">
+  <SectionHeading number="03" label="The Wines" className="md:items-end">
+    <div class="grid grid-cols-12 items-end">
       <div class="col-span-12 md:col-span-7">
-        <p class="label-mono text-ink-soft">
-          § 03 — The Wines
-        </p>
-        <h2 class="section-title mt-4 md:mt-6">
+        <h2 class="section-title">
           <RevealLine>Four wines,</RevealLine>
           <RevealLine class="italic text-clay">one vineyard,</RevealLine>
           <RevealLine>no compromises.</RevealLine>
@@ -73,84 +72,76 @@ const wines = [
         </p>
       </div>
     </div>
+  </SectionHeading>
 
-    <div class="mt-12 space-y-16 md:mt-20 lg:mt-24 md:space-y-24 lg:space-y-32">
-      {
-        wines.map((w, i) => (
-          <article
-            class={`flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}
-            data-fade
-          >
-            <div class="md:basis-1/2">
-              <div class="relative aspect-[4/5] overflow-hidden bg-ink">
-                <Image
-                  src={w.img}
-                  alt={w.name}
-                  width={800}
-                  height={1000}
-                  class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-                />
-                <div class="absolute left-4 top-4 font-mono text-3xs uppercase tracking-micro-wide text-bone mix-blend-difference">
-                  Cuvée / {w.n}
-                </div>
+  <div class="mt-12 space-y-16 md:mt-20 lg:mt-24 md:space-y-24 lg:space-y-32">
+    {
+      wines.map((w, i) => (
+        <article
+          class={`flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+          data-fade
+        >
+          <div class="md:basis-1/2">
+            <div class="relative aspect-[4/5] overflow-hidden bg-ink">
+              <Image
+                src={w.img}
+                alt={w.name}
+                width={800}
+                height={1000}
+                class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+              />
+              <div class="absolute left-4 top-4 font-mono text-3xs uppercase tracking-micro-wide text-bone mix-blend-difference">
+                Cuvée / {w.n}
               </div>
             </div>
+          </div>
 
-            <div class="md:basis-5/12">
-              <div class="font-mono text-3xs uppercase tracking-micro-wide text-ink-soft">
-                {w.year} · {w.abv}
-              </div>
-              <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
-                {w.name}
-              </h3>
-              <p class="mt-1 font-display text-base italic text-clay md:mt-2 md:text-lg">
-                {w.sub}
-              </p>
-
-              <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-2xs uppercase tracking-[0.15em] text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
-                <div class="border-t border-ink/20 pt-2">
-                  <dt class="opacity-50">Maceration</dt>
-                  <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
-                </div>
-                <div class="border-t border-ink/20 pt-2">
-                  <dt class="opacity-50">Production</dt>
-                  <dd class="mt-1 normal-case text-ink">{w.bottles}</dd>
-                </div>
-              </dl>
-
-              <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
-                {w.notes.map((n) => (
-                  <li class="border border-ink/25 px-2 py-0.5 font-mono text-3xs uppercase tracking-micro text-ink md:px-3 md:py-1">
-                    {n}
-                  </li>
-                ))}
-              </ul>
-
-              <div class="mt-6 flex items-end justify-between md:mt-10">
-                <div>
-                  <div class="font-mono text-3xs uppercase tracking-micro text-ink-soft">Allocation</div>
-                  <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
-                </div>
-                <a
-                  href="#visit"
-                  class="group flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.25em] text-ink"
-                >
-                  Request bottle
-                  <span class="block h-px w-6 bg-current transition-all group-hover:w-10" />
-                </a>
-              </div>
+          <div class="md:basis-5/12">
+            <div class="font-mono text-3xs uppercase tracking-micro-wide text-ink-soft">
+              {w.year} · {w.abv}
             </div>
-          </article>
-        ))
-      }
-    </div>
+            <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
+              {w.name}
+            </h3>
+            <p class="mt-1 font-display text-base italic text-clay md:mt-2 md:text-lg">
+              {w.sub}
+            </p>
+
+            <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
+              <div class="border-t border-ink/15 pt-2">
+                <dt class="opacity-50">Maceration</dt>
+                <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
+              </div>
+              <div class="border-t border-ink/15 pt-2">
+                <dt class="opacity-50">Production</dt>
+                <dd class="mt-1 normal-case text-ink">{w.bottles}</dd>
+              </div>
+            </dl>
+
+            <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
+              {w.notes.map((n) => (
+                <li class="border border-ink/25 px-2 py-0.5 font-mono text-3xs uppercase tracking-micro text-ink md:px-3 md:py-1">
+                  {n}
+                </li>
+              ))}
+            </ul>
+
+            <div class="mt-6 flex items-end justify-between md:mt-10">
+              <div>
+                <div class="font-mono text-3xs uppercase tracking-micro text-ink-soft">Allocation</div>
+                <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
+              </div>
+              <a
+                href="#visit"
+                class="group flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.25em] text-ink"
+              >
+                Request bottle
+                <span class="block h-px w-6 bg-current transition-all group-hover:w-10" />
+              </a>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
 </Section>
-
-<script>
-  import { whenMotionAllowed, animateLineReveal, animateFadeIn } from "../utils/animations";
-
-  whenMotionAllowed(() => {
-    animateLineReveal("#wines");
-    animateFadeIn("#wines");
-  });
-</script>
