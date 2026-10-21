@@ -51,8 +51,9 @@ import "../styles/global.css";
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
 
-    const onMenuToggle = (e: Event) => {
-      const open = (e as CustomEvent<{ open: boolean }>).detail?.open;
+    const onMenuToggle = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return;
+      const open = (event.detail as { open?: boolean } | undefined)?.open;
       if (open) lenis.stop();
       else lenis.start();
     };
