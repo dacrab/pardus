@@ -1,168 +1,161 @@
 ---
 const links = [
-  { label: "Manifesto", href: "#manifesto" },
-  { label: "The Land", href: "#land" },
-  { label: "Wines", href: "#wines" },
-  { label: "Process", href: "#process" },
-  { label: "Visit", href: "#visit" },
+    { label: "Manifesto", href: "#manifesto" },
+    { label: "The Land", href: "#land" },
+    { label: "Wines", href: "#wines" },
+    { label: "Process", href: "#process" },
+    { label: "Visit", href: "#visit" },
 ];
 ---
 
-<header
-  class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bone md:px-10"
->
-  <a href="#" class="flex items-center gap-3 font-mono text-xs uppercase tracking-micro-wide">
-    <span class="block h-2 w-2 rounded-full bg-clay"></span>
-    Pardus / MMXXVI
-  </a>
+<header class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-5 mix-blend-difference text-bone md:px-10">
+    <a href="#" class="flex items-center gap-3 font-mono text-xs uppercase tracking-micro-wide">
+        <span class="block h-2 w-2 rounded-full bg-clay"></span>
+        Pardus / MMXXVI
+    </a>
 
-  <nav class="hidden items-center gap-8 label-mono-sm md:flex">
-    {
-      links.map((l) => (
-        <a
-          href={l.href}
-          class="relative py-1 opacity-70 transition after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform hover:opacity-100 hover:after:scale-x-100"
-          data-nav-link
-        >
-          {l.label}
-        </a>
-      ))
-    }
-  </nav>
+    <nav class="hidden items-center gap-8 label-mono-sm md:flex">
+        {links.map((l) => (
+            <a
+                href={l.href}
+                class="relative py-1 opacity-70 transition after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform hover:opacity-100 hover:after:scale-x-100"
+                data-nav-link
+            >
+                {l.label}
+            </a>
+        ))}
+    </nav>
 
-  <a
-    href="#visit"
-    class="group hidden items-center gap-2 label-mono-sm opacity-90 transition hover:opacity-100 md:flex"
-  >
-    <span>Reserve a tasting</span>
-    <span class="block h-px w-6 bg-current transition-all group-hover:w-10"></span>
-  </a>
+    <a
+        href="#visit"
+        class="group hidden items-center gap-2 label-mono-sm opacity-90 transition hover:opacity-100 md:flex"
+    >
+        <span>Reserve a tasting</span>
+        <span class="arrow-line"></span>
+    </a>
 
-  <button
-    class="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
-    data-menu-btn
-    aria-label="Open navigation"
-    aria-expanded="false"
-    aria-controls="mobile-menu"
-    type="button"
-  >
-    <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
-    <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
-  </button>
+    <button
+        class="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+        data-menu-btn
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        type="button"
+    >
+        <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
+        <span class="block h-px w-5 bg-current transition-all" data-menu-bar></span>
+    </button>
 </header>
 
 <div
-  id="mobile-menu"
-  class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-ink px-6 text-bone opacity-0 transition-opacity duration-300 pointer-events-none md:hidden"
-  data-menu-overlay
-  role="dialog"
-  aria-modal="true"
-  aria-label="Site navigation"
-  aria-hidden="true"
-  inert
+    id="mobile-menu"
+    class="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 bg-ink px-6 text-bone opacity-0 transition-opacity duration-300 pointer-events-none md:hidden"
+    data-menu-overlay
+    role="dialog"
+    aria-modal="true"
+    aria-label="Site navigation"
+    aria-hidden="true"
+    inert
 >
-  {
-    links.map((l) => (
-      <a
-        href={l.href}
-        class="py-3 font-display text-4xl tracking-[-0.04em] transition active:opacity-60 hover:text-clay"
+    {links.map((l) => (
+        <a
+            href={l.href}
+            class="py-3 font-display text-4xl tracking-[-0.04em] transition active:opacity-60 hover:text-clay"
+            data-menu-link
+        >
+            {l.label}
+        </a>
+    ))}
+    <a
+        href="#visit"
+        class="mt-6 flex items-center gap-2 py-3 font-mono text-2xs uppercase tracking-micro-wide transition active:opacity-60 hover:text-clay"
         data-menu-link
-      >
-        {l.label}
-      </a>
-    ))
-  }
-  <a
-    href="#visit"
-    class="mt-6 flex items-center gap-2 py-3 font-mono text-2xs uppercase tracking-micro-wide transition active:opacity-60 hover:text-clay"
-    data-menu-link
-  >
-    Reserve a tasting
-  </a>
+    >
+        Reserve a tasting
+    </a>
 </div>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
-  const overlay = document.querySelector<HTMLElement>("[data-menu-overlay]");
-  const bars = document.querySelectorAll<HTMLElement>("[data-menu-bar]");
-  const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
+    const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
+    const overlay = document.querySelector<HTMLElement>("[data-menu-overlay]");
+    const bars = document.querySelectorAll<HTMLElement>("[data-menu-bar]");
+    const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
 
-  if (btn && overlay) {
-    const isOpen = () => !overlay.classList.contains("opacity-0");
-    const focusables = () =>
-      Array.from(overlay.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
+    if (btn && overlay) {
+        const isOpen = () => !overlay.classList.contains("opacity-0");
+        const focusables = () => Array.from(overlay.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
 
-    const setOpen = (open: boolean) => {
-      if (!open && overlay.contains(document.activeElement)) btn.focus();
-      overlay.classList.toggle("pointer-events-none", !open);
-      overlay.classList.toggle("opacity-0", !open);
-      overlay.toggleAttribute("inert", !open);
-      overlay.setAttribute("aria-hidden", String(!open));
-      bars.forEach((bar, index) => {
-        bar.classList.toggle("rotate-45", open && index === 0);
-        bar.classList.toggle("-rotate-45", open && index === 1);
-        bar.classList.toggle("translate-y-[3.5px]", open && index === 0);
-        bar.classList.toggle("-translate-y-[3.5px]", open && index === 1);
-      });
-      btn.setAttribute("aria-expanded", String(open));
-      btn.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-      document.body.style.overflow = open ? "hidden" : "";
-      document.dispatchEvent(new CustomEvent("menu:toggle", { detail: { open } }));
-      if (open) requestAnimationFrame(() => focusables()[0]?.focus());
-    };
+        const setOpen = (open: boolean) => {
+            if (!open && overlay.contains(document.activeElement)) btn.focus();
+            overlay.classList.toggle("pointer-events-none", !open);
+            overlay.classList.toggle("opacity-0", !open);
+            overlay.toggleAttribute("inert", !open);
+            overlay.setAttribute("aria-hidden", String(!open));
+            bars.forEach((bar, index) => {
+                bar.classList.toggle("rotate-45", open && index === 0);
+                bar.classList.toggle("-rotate-45", open && index === 1);
+                bar.classList.toggle("translate-y-[3.5px]", open && index === 0);
+                bar.classList.toggle("-translate-y-[3.5px]", open && index === 1);
+            });
+            btn.setAttribute("aria-expanded", String(open));
+            btn.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+            document.body.style.overflow = open ? "hidden" : "";
+            document.dispatchEvent(new CustomEvent("menu:toggle", { detail: { open } }));
+            if (open) requestAnimationFrame(() => focusables()[0]?.focus());
+        };
 
-    btn.addEventListener("click", () => setOpen(!isOpen()));
+        btn.addEventListener("click", () => setOpen(!isOpen()));
 
-    menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
+        menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
 
-    document.addEventListener("keydown", (e) => {
-      if (!isOpen()) return;
-      if (e.key === "Escape") {
-        setOpen(false);
-        btn.focus();
-        return;
-      }
-      if (e.key !== "Tab") return;
-      const items = focusables();
-      if (!items.length) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      const active = document.activeElement;
-      if (e.shiftKey && (active === first || !overlay.contains(active))) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && (active === last || !overlay.contains(active))) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
-
-    const desktop = window.matchMedia("(min-width: 768px)");
-    desktop.addEventListener("change", (e) => {
-      if (e.matches && isOpen()) setOpen(false);
-    });
-  }
-
-  const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
-  const sections = [...navLinks]
-    .map((a) => document.getElementById(a.getAttribute("href")?.slice(1) ?? ""))
-    .filter((s): s is HTMLElement => !!s);
-
-  if (sections.length && "IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let active = "";
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) active = `#${entry.target.id}`;
+        document.addEventListener("keydown", (e) => {
+            if (!isOpen()) return;
+            if (e.key === "Escape") {
+                setOpen(false);
+                btn.focus();
+                return;
+            }
+            if (e.key !== "Tab") return;
+            const items = focusables();
+            if (!items.length) return;
+            const first = items[0];
+            const last = items[items.length - 1];
+            const active = document.activeElement;
+            if (e.shiftKey && (active === first || !overlay.contains(active))) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && (active === last || !overlay.contains(active))) {
+                e.preventDefault();
+                first.focus();
+            }
         });
-        navLinks.forEach((link) => {
-          const isActive = link.getAttribute("href") === active;
-          link.classList.toggle("opacity-100", isActive);
-          link.classList.toggle("after:scale-x-100", isActive);
+
+        const desktop = window.matchMedia("(min-width: 768px)");
+        desktop.addEventListener("change", (e) => {
+            if (e.matches && isOpen()) setOpen(false);
         });
-      },
-      { rootMargin: "-40% 0px -55% 0px" },
-    );
-    sections.forEach((s) => observer.observe(s));
-  }
+    }
+
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]");
+    const sections = [...navLinks]
+        .map((a) => document.getElementById(a.getAttribute("href")?.slice(1) ?? ""))
+        .filter((s): s is HTMLElement => !!s);
+
+    if (sections.length && "IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                let active = "";
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) active = `#${entry.target.id}`;
+                });
+                navLinks.forEach((link) => {
+                    const isActive = link.getAttribute("href") === active;
+                    link.classList.toggle("opacity-100", isActive);
+                    link.classList.toggle("after:scale-x-100", isActive);
+                });
+            },
+            { rootMargin: "-40% 0px -55% 0px" }
+        );
+        sections.forEach((s) => observer.observe(s));
+    }
 </script>

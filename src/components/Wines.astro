@@ -5,143 +5,140 @@ import RevealLine from "./RevealLine.astro";
 import { Image } from "astro:assets";
 
 const wines = [
-  {
-    n: "01",
-    name: "Pardus Bianco",
-    sub: "Assyrtiko · Malagousia",
-    year: "2023",
-    abv: "12.5%",
-    skin: "14 days on skins",
-    bottles: "1,180 bottles",
-    notes: ["Wild fennel", "Salt-rind", "Quince", "Wet stone"],
-    price: "€38",
-    img: "https://images.unsplash.com/photo-1764078383562-ec9b22343307",
-  },
-  {
-    n: "02",
-    name: "Pardus Rosso",
-    sub: "Mavrotragano · Voudomato",
-    year: "2022",
-    abv: "13.0%",
-    skin: "21 days on skins",
-    bottles: "820 bottles",
-    notes: ["Sour cherry", "Dried rose", "Black tea", "Iron"],
-    price: "€44",
-    img: "https://images.unsplash.com/photo-1474722883778-792e7990302f",
-  },
-  {
-    n: "03",
-    name: "Pardus Pet-Nat",
-    sub: "Assyrtiko · Muscat",
-    year: "2023",
-    abv: "11.5%",
-    skin: "Ancestral, disgorged by hand",
-    bottles: "640 bottles",
-    notes: ["Bergamot", "Pear skin", "Yeast", "Sea air"],
-    price: "€32",
-    img: "https://images.unsplash.com/photo-1547595628-c61a29f496f0",
-  },
-  {
-    n: "04",
-    name: "Pardus Amphora",
-    sub: "Mavrotragano, old vines",
-    year: "2021",
-    abv: "12.5%",
-    skin: "11 months in clay amphora",
-    bottles: "480 bottles",
-    notes: ["Pomegranate", "Tobacco", "Tar", "Dried herbs"],
-    price: "€68",
-    img: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559",
-  },
+    {
+        number: "01",
+        name: "Pardus Bianco",
+        subtitle: "Assyrtiko · Malagousia",
+        year: "2023",
+        abv: "12.5%",
+        skin: "14 days on skins",
+        bottles: "1,180 bottles",
+        notes: ["Wild fennel", "Salt-rind", "Quince", "Wet stone"],
+        price: "€38",
+        image: "https://images.unsplash.com/photo-1764078383562-ec9b22343307",
+    },
+    {
+        number: "02",
+        name: "Pardus Rosso",
+        subtitle: "Mavrotragano · Voudomato",
+        year: "2022",
+        abv: "13.0%",
+        skin: "21 days on skins",
+        bottles: "820 bottles",
+        notes: ["Sour cherry", "Dried rose", "Black tea", "Iron"],
+        price: "€44",
+        image: "https://images.unsplash.com/photo-1474722883778-792e7990302f",
+    },
+    {
+        number: "03",
+        name: "Pardus Pet-Nat",
+        subtitle: "Assyrtiko · Muscat",
+        year: "2023",
+        abv: "11.5%",
+        skin: "Ancestral, disgorged by hand",
+        bottles: "640 bottles",
+        notes: ["Bergamot", "Pear skin", "Yeast", "Sea air"],
+        price: "€32",
+        image: "https://images.unsplash.com/photo-1547595628-c61a29f496f0",
+    },
+    {
+        number: "04",
+        name: "Pardus Amphora",
+        subtitle: "Mavrotragano, old vines",
+        year: "2021",
+        abv: "12.5%",
+        skin: "11 months in clay amphora",
+        bottles: "480 bottles",
+        notes: ["Pomegranate", "Tobacco", "Tar", "Dried herbs"],
+        price: "€68",
+        image: "https://images.unsplash.com/photo-1568213816046-0ee1c42bd559",
+    },
 ];
 ---
 
 <Section id="wines">
-  <SectionHeading number="03" label="The Wines" className="md:items-end">
-    <div class="grid grid-cols-12 items-end">
-      <div class="col-span-12 md:col-span-7">
-        <h2 class="section-title">
-          <RevealLine>Four wines,</RevealLine>
-          <RevealLine class="italic text-clay">one vineyard,</RevealLine>
-          <RevealLine>no compromises.</RevealLine>
-        </h2>
-      </div>
-      <div class="col-span-12 md:col-span-4 md:col-start-9">
-        <p class="font-display text-base leading-snug text-ink-soft md:text-lg">
-          Each parcel is harvested, fermented, and bottled separately. We do not blend away the year. The bottle on your table is the season it came from, nothing more.
-        </p>
-      </div>
+    <SectionHeading number="03" label="The Wines" className="md:items-end">
+        <div class="grid grid-cols-12 items-end">
+            <div class="col-span-12 md:col-span-7">
+                <h2 class="section-title">
+                    <RevealLine>Four wines,</RevealLine>
+                    <RevealLine class="italic text-clay">one vineyard,</RevealLine>
+                    <RevealLine>no compromises.</RevealLine>
+                </h2>
+            </div>
+            <div class="col-span-12 md:col-span-4 md:col-start-9">
+                <p class="font-display text-base leading-snug text-ink-soft md:text-lg">
+                    Each parcel is harvested, fermented, and bottled separately. We do not blend away the year. The
+                    bottle on your table is the season it came from, nothing more.
+                </p>
+            </div>
+        </div>
+    </SectionHeading>
+
+    <div class="mt-12 space-y-16 md:mt-20 lg:mt-24 md:space-y-24 lg:space-y-32">
+        {wines.map((w, i) => (
+            <article
+                class={`flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}
+                data-fade
+            >
+                <div class="md:basis-1/2">
+                    <div class="relative aspect-[4/5] overflow-hidden bg-ink">
+                        <Image
+                            src={w.image}
+                            alt={w.name}
+                            width={800}
+                            height={1000}
+                            class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+                        />
+                        <div class="absolute left-4 top-4 font-mono text-3xs uppercase tracking-micro-wide text-bone mix-blend-difference">
+                            Cuvée / {w.number}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:basis-5/12">
+                    <div class="font-mono text-3xs uppercase tracking-micro-wide text-ink-soft">
+                        {w.year} · {w.abv}
+                    </div>
+                    <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
+                        {w.name}
+                    </h3>
+                    <p class="mt-1 font-display text-base italic text-clay md:mt-2 md:text-lg">{w.subtitle}</p>
+
+                    <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
+                        <div class="border-t border-ink/15 pt-2">
+                            <dt class="opacity-50">Maceration</dt>
+                            <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
+                        </div>
+                        <div class="border-t border-ink/15 pt-2">
+                            <dt class="opacity-50">Production</dt>
+                            <dd class="mt-1 normal-case text-ink">{w.bottles}</dd>
+                        </div>
+                    </dl>
+
+                    <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
+                        {w.notes.map((n) => (
+                            <li class="border border-ink/25 px-2 py-0.5 font-mono text-3xs uppercase tracking-micro text-ink md:px-3 md:py-1">
+                                {n}
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div class="mt-6 flex items-end justify-between md:mt-10">
+                        <div>
+                            <div class="font-mono text-3xs uppercase tracking-micro text-ink-soft">Allocation</div>
+                            <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
+                        </div>
+                        <a
+                            href="#visit"
+                            class="group flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.25em] text-ink"
+                        >
+                            Request bottle
+                            <span class="arrow-line" />
+                        </a>
+                    </div>
+                </div>
+            </article>
+        ))}
     </div>
-  </SectionHeading>
-
-  <div class="mt-12 space-y-16 md:mt-20 lg:mt-24 md:space-y-24 lg:space-y-32">
-    {
-      wines.map((w, i) => (
-        <article
-          class={`flex flex-col gap-6 md:flex-row md:items-center md:gap-10 ${i % 2 === 1 ? "md:flex-row-reverse" : ""}`}
-          data-fade
-        >
-          <div class="md:basis-1/2">
-            <div class="relative aspect-[4/5] overflow-hidden bg-ink">
-              <Image
-                src={w.img}
-                alt={w.name}
-                width={800}
-                height={1000}
-                class="h-full w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
-              />
-              <div class="absolute left-4 top-4 font-mono text-3xs uppercase tracking-micro-wide text-bone mix-blend-difference">
-                Cuvée / {w.n}
-              </div>
-            </div>
-          </div>
-
-          <div class="md:basis-5/12">
-            <div class="font-mono text-3xs uppercase tracking-micro-wide text-ink-soft">
-              {w.year} · {w.abv}
-            </div>
-            <h3 class="mt-2 font-display text-3xl leading-[0.95] tracking-[-0.04em] text-ink md:mt-3 md:text-5xl lg:text-6xl">
-              {w.name}
-            </h3>
-            <p class="mt-1 font-display text-base italic text-clay md:mt-2 md:text-lg">
-              {w.sub}
-            </p>
-
-            <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-2 font-mono text-2xs uppercase tracking-micro text-ink-soft md:mt-8 md:gap-x-6 md:gap-y-3">
-              <div class="border-t border-ink/15 pt-2">
-                <dt class="opacity-50">Maceration</dt>
-                <dd class="mt-1 normal-case text-ink">{w.skin}</dd>
-              </div>
-              <div class="border-t border-ink/15 pt-2">
-                <dt class="opacity-50">Production</dt>
-                <dd class="mt-1 normal-case text-ink">{w.bottles}</dd>
-              </div>
-            </dl>
-
-            <ul class="mt-6 flex flex-wrap gap-1.5 md:mt-8 md:gap-2">
-              {w.notes.map((n) => (
-                <li class="border border-ink/25 px-2 py-0.5 font-mono text-3xs uppercase tracking-micro text-ink md:px-3 md:py-1">
-                  {n}
-                </li>
-              ))}
-            </ul>
-
-            <div class="mt-6 flex items-end justify-between md:mt-10">
-              <div>
-                <div class="font-mono text-3xs uppercase tracking-micro text-ink-soft">Allocation</div>
-                <div class="font-display text-2xl text-ink md:text-3xl">{w.price}</div>
-              </div>
-              <a
-                href="#visit"
-                class="group flex items-center gap-2 font-mono text-2xs uppercase tracking-[0.25em] text-ink"
-              >
-                Request bottle
-                <span class="block h-px w-6 bg-current transition-all group-hover:w-10" />
-              </a>
-            </div>
-          </div>
-        </article>
-      ))
-    }
-  </div>
 </Section>

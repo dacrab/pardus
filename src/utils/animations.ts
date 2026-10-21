@@ -6,68 +6,69 @@ gsap.registerPlugin(ScrollTrigger);
 const mm = gsap.matchMedia();
 
 export function whenMotionAllowed(cb: () => void | (() => void)): void {
-  mm.add("(prefers-reduced-motion: no-preference)", cb);
+    // gsap.matchMedia() consumes any cleanup function returned by `cb` and runs
+    // it automatically on revert (e.g. if the OS motion preference flips at
+    // runtime). The site never unmounts, but this keep-alive context must not
+    // leak Lenis/ScrollTrigger listeners if the query stops matching.
+    mm.add("(prefers-reduced-motion: no-preference)", cb);
 }
 
-type AnimType = "line" | "fade" | "zoom" | "stagger";
+export type AnimType = "line" | "fade" | "zoom" | "stagger";
 
-type AnimOpts = {
-  start?: string;
-  duration?: number;
-  stagger?: number;
-  ease?: string;
+export type AnimOpts = {
+    start?: string;
+    duration?: number;
+    stagger?: number;
+    ease?: string;
 };
 
-const DEFAULTS: Record<
-  AnimType,
-  { selector: string; vars: Record<string, unknown>; opts: AnimOpts }
-> = {
-  line: {
-    selector: "[data-line]",
-    vars: { y: "0%" },
-    opts: { start: "top 85%", duration: 1.1, stagger: 0.1, ease: "expo.out" },
-  },
-  fade: {
-    selector: "[data-fade]",
-    vars: { opacity: 1, y: 0 },
-    opts: { start: "top 90%", duration: 1, stagger: 0.1, ease: "expo.out" },
-  },
-  zoom: {
-    selector: "[data-zoom]",
-    vars: { opacity: 1, scale: 1 },
-    opts: { start: "top 85%", duration: 1.2, stagger: 0.15, ease: "expo.out" },
-  },
-  stagger: {
-    selector: "[data-stagger]",
-    vars: { opacity: 1, y: 0 },
-    opts: { start: "top 85%", duration: 0.9, stagger: 0.08, ease: "expo.out" },
-  },
+const DEFAULTS: Record<AnimType, { selector: string; vars: Record<string, unknown>; opts: AnimOpts }> = {
+    line: {
+        selector: "[data-line]",
+        vars: { y: "0%" },
+        opts: { start: "top 85%", duration: 1.1, stagger: 0.1, ease: "expo.out" },
+    },
+    fade: {
+        selector: "[data-fade]",
+        vars: { opacity: 1, y: 0 },
+        opts: { start: "top 90%", duration: 1, stagger: 0.1, ease: "expo.out" },
+    },
+    zoom: {
+        selector: "[data-zoom]",
+        vars: { opacity: 1, scale: 1 },
+        opts: { start: "top 85%", duration: 1.2, stagger: 0.15, ease: "expo.out" },
+    },
+    stagger: {
+        selector: "[data-stagger]",
+        vars: { opacity: 1, y: 0 },
+        opts: { start: "top 85%", duration: 0.9, stagger: 0.08, ease: "expo.out" },
+    },
 };
 
 function animate(container: string, type: AnimType, overrides?: AnimOpts) {
-  const { selector, vars, opts } = DEFAULTS[type];
-  const els = document.querySelectorAll<HTMLElement>(`${container} ${selector}`);
-  if (!els.length) return;
-  const merged = { ...opts, ...overrides };
-  const play = (batch: Element[]) =>
-    gsap.to(batch, {
-      ...vars,
-      duration: merged.duration,
-      stagger: merged.stagger,
-      ease: merged.ease,
-    });
+    const { selector, vars, opts } = DEFAULTS[type];
+    const els = document.querySelectorAll<HTMLElement>(`${container} ${selector}`);
+    if (!els.length) return;
+    const merged = { ...opts, ...overrides };
+    const play = (batch: Element[]) =>
+        gsap.to(batch, {
+            ...vars,
+            duration: merged.duration,
+            stagger: merged.stagger,
+            ease: merged.ease,
+        });
 
-  ScrollTrigger.batch(els, {
-    onEnter: play,
-    onEnterBack: play,
-    // Deep links and restored scroll positions can start below elements that
-    // would otherwise wait for an "enter" that already happened.
-    onRefresh: (batch) => {
-      const passed = batch.filter((el) => el.getBoundingClientRect().top < 0);
-      if (passed.length) gsap.set(passed, vars);
-    },
-    start: merged.start,
-  });
+    ScrollTrigger.batch(els, {
+        onEnter: play,
+        onEnterBack: play,
+        // Deep links and restored scroll positions can start below elements that
+        // would otherwise wait for an "enter" that already happened.
+        onRefresh: (batch) => {
+            const passed = batch.filter((el) => el.getBoundingClientRect().top < 0);
+            if (passed.length) gsap.set(passed, vars);
+        },
+        start: merged.start,
+    });
 }
 
 export const animateLineReveal = (c: string, o?: AnimOpts) => animate(c, "line", o);
