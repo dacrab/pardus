@@ -41,6 +41,7 @@ const links = [
   <button
     class="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
     data-menu-btn
+    aria-label="Open navigation"
     aria-expanded="false"
     aria-controls="mobile-menu"
     type="button"
@@ -57,6 +58,8 @@ const links = [
   role="dialog"
   aria-modal="true"
   aria-label="Site navigation"
+  aria-hidden="true"
+  inert
 >
   {
     links.map((l) => (
@@ -85,29 +88,58 @@ const links = [
   const menuLinks = document.querySelectorAll<HTMLElement>("[data-menu-link]");
 
   if (btn && overlay) {
+    const isOpen = () => !overlay.classList.contains("opacity-0");
+    const focusables = () =>
+      Array.from(overlay.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
+
     const setOpen = (open: boolean) => {
+      if (!open && overlay.contains(document.activeElement)) btn.focus();
       overlay.classList.toggle("pointer-events-none", !open);
       overlay.classList.toggle("opacity-0", !open);
-      bars.forEach((bar) => {
-        bar.classList.toggle("rotate-45", open);
-        bar.classList.toggle("translate-y-[3.5px]", open);
+      overlay.toggleAttribute("inert", !open);
+      overlay.setAttribute("aria-hidden", String(!open));
+      bars.forEach((bar, index) => {
+        bar.classList.toggle("rotate-45", open && index === 0);
+        bar.classList.toggle("-rotate-45", open && index === 1);
+        bar.classList.toggle("translate-y-[3.5px]", open && index === 0);
+        bar.classList.toggle("-translate-y-[3.5px]", open && index === 1);
       });
       btn.setAttribute("aria-expanded", String(open));
       btn.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
       document.body.style.overflow = open ? "hidden" : "";
+      document.dispatchEvent(new CustomEvent("menu:toggle", { detail: { open } }));
+      if (open) requestAnimationFrame(() => focusables()[0]?.focus());
     };
 
-    btn.addEventListener("click", () => {
-      setOpen(overlay.classList.contains("opacity-0"));
-    });
+    btn.addEventListener("click", () => setOpen(!isOpen()));
 
     menuLinks.forEach((link) => link.addEventListener("click", () => setOpen(false)));
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !overlay.classList.contains("opacity-0")) {
+      if (!isOpen()) return;
+      if (e.key === "Escape") {
         setOpen(false);
         btn.focus();
+        return;
       }
+      if (e.key !== "Tab") return;
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      if (e.shiftKey && (active === first || !overlay.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && (active === last || !overlay.contains(active))) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    const desktop = window.matchMedia("(min-width: 768px)");
+    desktop.addEventListener("change", (e) => {
+      if (e.matches && isOpen()) setOpen(false);
     });
   }
 

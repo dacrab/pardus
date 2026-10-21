@@ -17,7 +17,7 @@ import "../styles/global.css";
 <BaseLayout>
   <Cursor />
   <Nav />
-  <main>
+  <main id="main" tabindex="-1">
     <Hero />
     <Estate />
     <Marquee />
@@ -45,9 +45,18 @@ import "../styles/global.css";
   whenMotionAllowed(() => {
     const lenis = new Lenis({ duration: 1.1 });
 
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    const onScroll = () => ScrollTrigger.update();
+    const raf = (time: number) => lenis.raf(time * 1000);
+    lenis.on("scroll", onScroll);
+    gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+
+    const onMenuToggle = (e: Event) => {
+      const open = (e as CustomEvent<{ open: boolean }>).detail?.open;
+      if (open) lenis.stop();
+      else lenis.start();
+    };
+    document.addEventListener("menu:toggle", onMenuToggle);
 
     document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
       a.addEventListener("click", (e) => {
@@ -56,7 +65,7 @@ import "../styles/global.css";
         const target = document.querySelector<HTMLElement>(href);
         if (target) {
           e.preventDefault();
-          lenis.scrollTo(target, { offset: -60 });
+          lenis.scrollTo(target, { offset: -60, force: true });
         }
       });
     });
@@ -88,6 +97,11 @@ import "../styles/global.css";
     animateLineReveal("#footer", { start: "top 90%" });
     animateFadeIn("#footer", { start: "top 90%", duration: 0.9 });
 
-    return () => lenis.destroy();
+    return () => {
+      document.removeEventListener("menu:toggle", onMenuToggle);
+      lenis.off("scroll", onScroll);
+      gsap.ticker.remove(raf);
+      lenis.destroy();
+    };
   });
 </script>

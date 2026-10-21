@@ -49,8 +49,23 @@ function animate(container: string, type: AnimType, overrides?: AnimOpts) {
   const els = document.querySelectorAll<HTMLElement>(`${container} ${selector}`);
   if (!els.length) return;
   const merged = { ...opts, ...overrides };
+  const play = (batch: Element[]) =>
+    gsap.to(batch, {
+      ...vars,
+      duration: merged.duration,
+      stagger: merged.stagger,
+      ease: merged.ease,
+    });
+
   ScrollTrigger.batch(els, {
-    onEnter: (batch) => gsap.to(batch, { ...vars, duration: merged.duration, stagger: merged.stagger, ease: merged.ease }),
+    onEnter: play,
+    onEnterBack: play,
+    // Deep links and restored scroll positions can start below elements that
+    // would otherwise wait for an "enter" that already happened.
+    onRefresh: (batch) => {
+      const passed = batch.filter((el) => el.getBoundingClientRect().top < 0);
+      if (passed.length) gsap.set(passed, vars);
+    },
     start: merged.start,
   });
 }

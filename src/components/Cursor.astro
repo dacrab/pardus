@@ -9,17 +9,37 @@
     if (!cursor) return;
 
     gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+    cursor.classList.add("is-ready");
     const xTo = gsap.quickTo(cursor, "x", { duration: 0.5, ease: "power3" });
     const yTo = gsap.quickTo(cursor, "y", { duration: 0.5, ease: "power3" });
-    document.addEventListener("mousemove", (e) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
+    let hasMoved = false;
+    const onMove = (event: MouseEvent) => {
+      if (!hasMoved) {
+        hasMoved = true;
+        gsap.set(cursor, { x: event.clientX, y: event.clientY });
+        cursor.classList.add("is-visible");
+      }
+      xTo(event.clientX);
+      yTo(event.clientY);
+    };
+    document.addEventListener("mousemove", onMove);
+
+    const hoverables = document.querySelectorAll<HTMLElement>("a, button");
+    const cleanupHover = [...hoverables].flatMap((el) => {
+      const enter = () => cursor.classList.add("is-hover");
+      const leave = () => cursor.classList.remove("is-hover");
+      el.addEventListener("mouseenter", enter);
+      el.addEventListener("mouseleave", leave);
+      return [
+        () => el.removeEventListener("mouseenter", enter),
+        () => el.removeEventListener("mouseleave", leave),
+      ];
     });
 
-    const hoverables = document.querySelectorAll("a, button, [data-hover]");
-    hoverables.forEach((el) => {
-      el.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
-      el.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
-    });
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      cleanupHover.forEach((cleanup) => cleanup());
+      cursor.classList.remove("is-ready", "is-visible", "is-hover");
+    };
   });
 </script>

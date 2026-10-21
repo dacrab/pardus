@@ -11,11 +11,14 @@ const items = [
 ];
 ---
 
-<section id="marquee" class="border-y border-ink/15 bg-ink py-6 text-bone">
+<section class="border-y border-ink/15 bg-ink py-6 text-bone">
   <div class="marquee">
     {
-      [0, 1].map(() => (
-        <div class="marquee__track font-display text-lg italic md:text-2xl lg:text-6xl">
+      [0, 1].map((index) => (
+        <div
+          class="marquee__track font-display text-lg italic md:text-2xl lg:text-6xl"
+          aria-hidden={index === 1 ? "true" : undefined}
+        >
           {items.map((item) => (
             <span class="flex items-center gap-6 whitespace-nowrap md:gap-12">
               {item}
