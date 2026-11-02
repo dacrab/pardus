@@ -1,0 +1,92 @@
+---
+import Brand from "./Brand.astro";
+import { nav, site } from "../data/site";
+---
+
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <Brand href="/" />
+
+    <nav class="desktop-nav" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} class="nav-link" data-nav-link>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <a href="#visit" class="btn header-cta">
+      Book a tasting
+    </a>
+
+    <button class="icon-btn" type="button" data-menu-open aria-label="Open navigation" aria-controls="menu">
+      <span class="icon-burger" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<dialog id="menu" class="menu" aria-label="Site navigation">
+  <div class="menu-inner">
+    <div class="menu-head">
+      <Brand />
+      <button class="icon-btn" type="button" data-menu-close aria-label="Close navigation">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+
+    <nav class="menu-nav" aria-label="Mobile">
+      {nav.map((item) => (
+        <a href={item.href} class="menu-link">
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <p class="meta menu-foot">
+      <a href={`mailto:${site.email.visit}`}>{site.email.visit}</a>
+      <span>{site.address.display}</span>
+    </p>
+  </div>
+</dialog>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const menu = document.querySelector<HTMLDialogElement>("#menu");
+  const openButton = document.querySelector<HTMLButtonElement>("[data-menu-open]");
+  const closeButton = document.querySelector<HTMLButtonElement>("[data-menu-close]");
+
+  const syncHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 8);
+  syncHeader();
+  window.addEventListener("scroll", syncHeader, { passive: true });
+
+  if (menu && openButton) {
+    openButton.addEventListener("click", () => menu.showModal());
+    closeButton?.addEventListener("click", () => menu.close());
+    menu.addEventListener("click", (event) => {
+      if (event.target === menu) menu.close();
+    });
+    window.matchMedia("(min-width: 48rem)").addEventListener("change", (event) => {
+      if (event.matches) menu.close();
+    });
+  }
+
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"));
+  const sections = links
+    .map((link) => document.querySelector<HTMLElement>(link.hash))
+    .filter((section): section is HTMLElement => section !== null);
+
+  if (sections.length && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          for (const link of links) {
+            link.toggleAttribute("aria-current", link.hash === `#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+  }
+</script>

@@ -1,0 +1,15 @@
+---
+import { site } from "../data/site";
+
+interface Props {
+  href?: string;
+}
+
+const { href } = Astro.props;
+const Tag = href ? "a" : "span";
+---
+
+<Tag class="brand" href={href}>
+  <span class="brand-dot" aria-hidden="true"></span>
+  {site.name}
+</Tag>

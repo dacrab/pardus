@@ -1,45 +1,33 @@
 ---
-import Section from "./Section.astro";
-import SectionHeading from "./SectionHeading.astro";
-import RevealLine from "./RevealLine.astro";
+import SectionHeader from "./SectionHeader.astro";
+import { neverUsed } from "../data/site";
 ---
 
-<Section id="manifesto">
-  <SectionHeading number="01" label="Manifesto">
-    <h2 class="section-title">
-      <RevealLine>We don't make wine.</RevealLine>
-      <RevealLine class="italic text-clay">We refuse to make</RevealLine>
-      <RevealLine>almost everything else.</RevealLine>
-    </h2>
+<section id="manifesto" class="section section--paper">
+  <div class="shell">
+    <SectionHeader label="Manifesto">
+      <h2 class="h2">
+        We make wine. <span class="accent">We add almost nothing.</span>
+      </h2>
+    </SectionHeader>
 
-    <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
-      <div class="col-span-12 md:col-span-5">
-        <p
-          class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
-          data-fade
-        >
-          No oak chips. No selected yeasts. No enzymes, no acid corrections, no
-          sugar adjustments, no reverse osmosis, no spinning cones, no
-          cryoextraction. No new French barriques with their slow leak of
-          vanilla into a liquid we did not put there.
+    <div class="split">
+      <div class="split-copy">
+        <p class="lede">
+          No oak chips, no selected yeasts, no enzymes. No acid or sugar corrections, no reverse osmosis, no spinning
+          cone. The cellar does the rest: clay, concrete, gravity, time.
         </p>
+        <p class="manifesto-sign">M. Halaris, winemaker</p>
       </div>
-      <div class="col-span-12 md:col-span-5 md:col-start-7">
-        <p
-          class="font-display text-base leading-[1.45] text-ink md:text-lg lg:text-xl"
-          data-fade
-        >
-          We harvest by hand, ferment in old clay and concrete, and bottle
-          unfined and unfiltered. The vineyard is the recipe. The vintage is
-          the chef. We are, at best, the kitchen porter who does not get in
-          the way.
-        </p>
+
+      <div class="never" data-reveal>
+        <p class="meta never-label">Never in the cellar or bottle</p>
+        <ul class="never-list">
+          {neverUsed.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
       </div>
     </div>
-
-    <div class="mt-12 flex items-center gap-4 label-mono-sm text-ink-soft md:mt-20 lg:mt-24">
-      <span class="h-px w-16 bg-ink-soft"></span>
-      <span>— M. Halaris, winemaker</span>
-    </div>
-  </SectionHeading>
-</Section>
+  </div>
+</section>

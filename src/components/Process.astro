@@ -1,72 +1,43 @@
 ---
-import Section from "./Section.astro";
-import SectionHeading from "./SectionHeading.astro";
-import RevealLine from "./RevealLine.astro";
-
-const steps = [
-    {
-        number: "I",
-        title: "Hand harvest",
-        body: "Three passes through each parcel over ten days. Grapes are picked into 18kg crates, never into the bin trailer. Sorted at the vine, not at the winery.",
-        span: "Late July — early September",
-    },
-    {
-        number: "II",
-        title: "Whole-bunch press",
-        body: "Press cycle lasts six to eight hours. The juice is settled overnight in stainless and racked by gravity. No pumps, no centrifuges, no shortcuts.",
-        span: "August — September",
-    },
-    {
-        number: "III",
-        title: "Wild ferment",
-        body: "Fermentation begins on its own, in old clay amphora or concrete egg. Native yeasts only. Temperatures follow the cellar, not a thermostat.",
-        span: "September — November",
-    },
-    {
-        number: "IV",
-        title: "Time on the lees",
-        body: "Eleven months of nothing. The wines rest in vessel, in cellar, in silence. Bâtonnage once a month. No bâtonnage for reds.",
-        span: "October — August",
-    },
-    {
-        number: "V",
-        title: "Bottle, unfined",
-        body: "A single racking by gravity. Bottled with no fining, no filtration, and 12mg/L of sulfur at most. Labels applied by hand, one at a time.",
-        span: "Following autumn",
-    },
-];
+import Figure from "./Figure.astro";
+import SectionHeader from "./SectionHeader.astro";
+import { processSteps } from "../data/site";
+import pour from "../assets/pour.webp";
 ---
 
-<Section id="process" tone="clay">
-    <SectionHeading number="04" label="The Process" tone="muted">
-        <h2 class="section-title">
-            <RevealLine>Twelve months.</RevealLine>
-            <RevealLine class="italic text-clay">Five acts.</RevealLine>
-            <RevealLine>One bottle.</RevealLine>
-        </h2>
-    </SectionHeading>
+<section id="process" class="section section--olive">
+  <div class="shell">
+    <SectionHeader label="The process">
+      <h2 class="h2">
+        Twelve months, <span class="accent">vine to bottle.</span>
+      </h2>
+    </SectionHeader>
 
-    <ol class="mt-12 space-y-px md:mt-20 lg:mt-24">
-        {steps.map((s) => (
-            <li
-                class="group border-t border-bone/15 py-6 transition-colors hover:bg-ink md:grid md:grid-cols-12 md:items-baseline md:gap-6 md:py-8 lg:py-12"
-                data-stagger
-            >
-                <div class="col-span-2 md:col-span-1">
-                    <div class="font-display text-3xl italic text-bone/30 transition-colors group-hover:text-clay md:text-4xl lg:text-6xl">
-                        {s.number}
-                    </div>
-                </div>
-                <div class="col-span-10 md:col-span-4">
-                    <h3 class="font-display text-xl leading-tight md:text-2xl lg:text-4xl">{s.title}</h3>
-                </div>
-                <div class="col-span-12 md:col-span-5">
-                    <p class="font-display text-sm leading-snug opacity-90 md:text-base lg:text-xl">{s.body}</p>
-                </div>
-                <div class="col-span-12 md:col-span-2 md:text-right">
-                    <div class="label-mono opacity-60">{s.span}</div>
-                </div>
-            </li>
+    <div class="process-grid">
+      <ol class="steps">
+        {processSteps.map((step, index) => (
+          <li class="step" data-reveal>
+            <span class="step-num" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <div class="step-head">
+                <h3 class="step-title">{step.title}</h3>
+                <span class="meta step-time">{step.timing}</span>
+              </div>
+              <p class="step-body">{step.body}</p>
+            </div>
+          </li>
         ))}
-    </ol>
-</Section>
+      </ol>
+
+      <Figure
+        src={pour}
+        alt="Wine being poured into a glass in a dark cellar"
+        ratio="portrait"
+        caption="Free-run juice, September"
+        class="process-figure"
+      />
+    </div>
+  </div>
+</section>

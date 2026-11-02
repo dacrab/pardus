@@ -1,42 +1,38 @@
 ---
-import Section from "./Section.astro";
-import { Image } from "astro:assets";
+import Facts from "./Facts.astro";
+import Figure from "./Figure.astro";
+import SectionHeader from "./SectionHeader.astro";
+import { estateFacts } from "../data/site";
+import estate from "../assets/estate.webp";
 ---
 
-<Section id="estate" padding="py-16 md:py-24 lg:py-32">
-  <div class="grid grid-cols-12 items-center gap-8 md:gap-12 lg:gap-16">
-    <div class="col-span-12 md:col-span-5">
-      <dl class="space-y-4 font-mono text-2xs uppercase tracking-micro text-ink-soft">
-        <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
-          <dt class="opacity-50">Founded</dt>
-          <dd class="font-display text-xl normal-case text-ink">2019</dd>
-        </div>
-        <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
-          <dt class="opacity-50">Hectares</dt>
-          <dd class="font-display text-xl normal-case text-ink">3.2</dd>
-        </div>
-        <div class="flex justify-between border-b border-ink/15 pb-3" data-stagger>
-          <dt class="opacity-50">Altitude</dt>
-          <dd class="font-display text-xl normal-case text-ink">612m</dd>
-        </div>
-        <div class="flex justify-between" data-stagger>
-          <dt class="opacity-50">Cases / yr</dt>
-          <dd class="font-display text-xl normal-case text-ink">1,800</dd>
-        </div>
-      </dl>
+<section id="estate" class="section">
+  <div class="shell">
+    <SectionHeader label="Estate">
+      <h2 class="h2">A small estate with a long memory.</h2>
+    </SectionHeader>
+
+    <div class="split">
+      <div class="split-copy">
+        <p class="lede">
+          Pardus is 3.2 hectares of terraced vines on the western slope of Ano Vouno. The oldest parcels were planted
+          around 1958.
+        </p>
+        <p>
+          We harvest in small crates and sort at the vine. The wine ferments on native yeast in old clay and concrete,
+          then rests on its lees until it is ready. Nothing is added that the wine does not need.
+        </p>
+      </div>
+
+      <Figure
+        src={estate}
+        alt="A glass of red wine with a bunch of grapes and vine leaves on a dark table"
+        ratio="square"
+        caption="Mavrotragano, old vines"
+        class="split-figure"
+      />
     </div>
 
-    <div class="col-span-12 md:col-span-6 md:col-start-7">
-      <div class="aspect-[16/9] overflow-hidden bg-ink md:aspect-[4/3]">
-        <Image
-          src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb"
-          alt="Vineyard at dusk"
-          width={1600}
-          height={900}
-          class="h-full w-full object-cover"
-          data-zoom
-        />
-      </div>
-    </div>
+    <Facts items={estateFacts} columns={3} variant="rows" class="estate-facts" />
   </div>
-</Section>
+</section>

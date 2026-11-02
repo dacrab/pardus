@@ -1,70 +1,60 @@
 ---
-import Section from "./Section.astro";
-import SectionHeading from "./SectionHeading.astro";
-import RevealLine from "./RevealLine.astro";
+import ArrowLink from "./ArrowLink.astro";
+import { nav, site } from "../data/site";
 
 const year = new Date().getFullYear();
 ---
 
-<Section id="footer" as="footer" tone="ink" padding="py-12 md:py-24 lg:py-32">
-    <SectionHeading number="06" label="Stay in touch" tone="muted">
-        <h2 class="mt-4 font-display text-4xl leading-[0.9] tracking-[-0.05em] md:mt-6 md:text-6xl lg:text-8xl">
-            <RevealLine>A letter,</RevealLine>
-            <RevealLine class="italic text-clay">twice a year,</RevealLine>
-            <RevealLine>no more.</RevealLine>
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div class="footer-lead">
+        <h2 class="footer-title">
+          A letter, <em>twice a year,</em> no more.
         </h2>
-    </SectionHeading>
+        <ArrowLink href={`mailto:${site.email.hello}?subject=Subscribe`}>Join the letter</ArrowLink>
+      </div>
 
-    <div class="mt-8 grid grid-cols-12 gap-6 md:mt-12">
-        <div class="col-span-6 md:col-span-2 md:col-start-9">
-            <p class="label-mono opacity-50">Cellar</p>
-            <ul class="mt-6 space-y-3 font-display text-lg">
-                <li>
-                    <a href="#wines" class="hover:text-clay">
-                        Wines
-                    </a>
-                </li>
-                <li>
-                    <a href="#process" class="hover:text-clay">
-                        Process
-                    </a>
-                </li>
-                <li>
-                    <a href="#visit" class="hover:text-clay">
-                        Visit
-                    </a>
-                </li>
-            </ul>
+      <nav class="footer-cols" aria-label="Footer">
+        <div>
+          <p class="meta">Index</p>
+          <ul>
+            {nav.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div class="col-span-6 md:col-span-2">
-            <p class="label-mono opacity-50">Channels</p>
-            <ul class="mt-6 space-y-3 font-display text-lg">
-                <li>
-                    <a href="mailto:hello@pardus.wine" class="hover:text-clay">
-                        Email
-                    </a>
-                </li>
-            </ul>
+
+        <div>
+          <p class="meta">Contact</p>
+          <ul>
+            <li>
+              <a href={`mailto:${site.email.hello}`}>{site.email.hello}</a>
+            </li>
+            <li>
+              <a href={`mailto:${site.email.visit}`}>{site.email.visit}</a>
+            </li>
+          </ul>
         </div>
+      </nav>
     </div>
 
-    <div class="mt-16 flex flex-col items-start justify-between gap-6 border-t border-bone/15 pt-8 label-mono opacity-50 md:mt-24 lg:mt-32 md:flex-row md:items-center">
-        <div>© {year} Pardus Wine Project · All vintages bottled unfined & unfiltered</div>
-        <div class="flex items-center gap-6">
-            <span>38.2146° N</span>
-            <span class="opacity-30">·</span>
-            <span>22.1234° E</span>
-            <span class="opacity-30">·</span>
-            <span>612m</span>
-        </div>
-    </div>
+    <p class="meta footer-bottom">
+      <span>
+        © {year} {site.name} Wine Project
+      </span>
+      <span>{site.address.display}</span>
+      <span>
+        {site.coordinates.lat} · {site.coordinates.lng}
+      </span>
+    </p>
 
-    <div class="mt-10 overflow-hidden md:mt-16 lg:mt-20">
-        <div
-            class="font-display text-7xl leading-[0.8] tracking-[-0.07em] text-bone/[0.08] md:text-8xl lg:text-9xl xl:text-[14rem]"
-            aria-hidden="true"
-        >
-            par·dus
-        </div>
-    </div>
-</Section>
+    <svg class="footer-word" viewBox="0 0 1200 330" aria-hidden="true" focusable="false">
+      <text x="600" y="290" text-anchor="middle" textLength="1200" lengthAdjust="spacingAndGlyphs">
+        pardus
+      </text>
+    </svg>
+  </div>
+</footer>

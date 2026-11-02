@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  ratio: "portrait" | "square" | "landscape" | "wide";
+  caption?: string;
+  /** Full-bleed image with a dark gradient and overlay content. */
+  overlay?: boolean;
+  eager?: boolean;
+  class?: string;
+}
+
+const { src, alt, ratio, caption, overlay = false, eager = false, class: className } = Astro.props;
+
+const widths: Record<Props["ratio"], number[]> = {
+  portrait: [480, 760, 999],
+  square: [400, 600, 800],
+  landscape: [480, 800, 1200],
+  wide: [800, 1200, 1600, 2000],
+};
+
+const sizes = {
+  portrait: "(min-width: 64rem) 34vw, (min-width: 48rem) 42vw, 100vw",
+  square: "(min-width: 64rem) 42vw, (min-width: 48rem) 50vw, 100vw",
+  landscape: "(min-width: 64rem) 42vw, (min-width: 48rem) 50vw, 100vw",
+  wide: "100vw",
+} as const;
+---
+
+<figure class:list={["figure", `figure--${ratio}`, { "figure--overlay": overlay }, className]}>
+  <Image
+    src={src}
+    alt={alt}
+    width={src.width}
+    height={src.height}
+    widths={widths[ratio]}
+    sizes={sizes[ratio]}
+    loading={eager ? "eager" : "lazy"}
+    fetchpriority={eager ? "high" : "auto"}
+    decoding="async"
+  />
+  {overlay && <slot />}
+  {caption && (
+    <figcaption class="caption">
+      <span>{caption}</span>
+      <slot name="meta" />
+    </figcaption>
+  )}
+</figure>

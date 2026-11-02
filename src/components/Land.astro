@@ -1,89 +1,38 @@
 ---
-import Section from "./Section.astro";
-import SectionHeading from "./SectionHeading.astro";
-import RevealLine from "./RevealLine.astro";
-import { Image } from "astro:assets";
-
-const facts = [
-  { k: "Soil", v: "Schist, limestone, decomposed clay" },
-  { k: "Aspect", v: "North-west, exposed to the meltemi" },
-  { k: "Vines", v: "Avg. 67 years, massale selection" },
-  { k: "Varietals", v: "Assyrtiko, Malagousia, Mavrotragano" },
-];
+import Facts from "./Facts.astro";
+import Figure from "./Figure.astro";
+import SectionHeader from "./SectionHeader.astro";
+import { landFacts, site } from "../data/site";
+import land from "../assets/land.webp";
 ---
 
-<Section id="land" tone="ink">
-  <SectionHeading number="02" label="The Land" tone="olive">
-    <p class="font-mono text-2xs uppercase tracking-micro-wide opacity-60">
-      Coordinates — 38.2146° N, 22.1234° E
-    </p>
-    <h2 class="section-title mt-4 md:mt-6">
-      <RevealLine>Six hundred and twelve metres above</RevealLine>
-      <RevealLine class="italic text-clay">a sea that does not forgive.</RevealLine>
-    </h2>
-  </SectionHeading>
-
-  <div class="mt-10 grid grid-cols-12 gap-6 md:mt-16 lg:mt-20">
-    <div class="col-span-12 md:col-span-7">
-      <div class="aspect-[4/5] overflow-hidden md:aspect-[16/11]">
-        <Image
-          src="https://images.unsplash.com/photo-1505252585461-04db1eb84625"
-          alt="Terraced vineyard on a hillside"
-          width={800}
-          height={1000}
-          class="h-full w-full object-cover"
-          data-zoom
-        />
-      </div>
-      <p class="mt-3 font-mono text-3xs uppercase tracking-micro opacity-60">
-        Fig. 02 — Terraces above the village of Ano Vouno
-      </p>
-    </div>
-
-    <div class="col-span-12 grid grid-cols-2 gap-3 md:col-span-4 md:col-start-9 md:gap-6">
-      <div class="aspect-[3/4] overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559"
-          alt="Old stone wall in vineyard"
-          width={600}
-          height={800}
-          class="h-full w-full object-cover grayscale"
-          data-zoom
-        />
-      </div>
-      <div class="aspect-[3/4] overflow-hidden md:mt-16">
-        <Image
-          src="https://images.unsplash.com/photo-1543007630-9710e4a00a20"
-          alt="Hands holding grapes"
-          width={600}
-          height={800}
-          class="h-full w-full object-cover"
-          data-zoom
-        />
-      </div>
-      <div class="col-span-2 mt-3 md:mt-6">
-        <Image
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0"
-          alt="Grapes on the vine"
-          width={1600}
-          height={900}
-          class="aspect-[16/9] w-full object-cover"
-          data-zoom
-        />
-      </div>
-    </div>
+<section id="land" class="section section--ink">
+  <div class="shell">
+    <SectionHeader label="The land">
+      <h2 class="h2">
+        Six hundred and twelve metres <span class="accent">above the meltemi.</span>
+      </h2>
+    </SectionHeader>
   </div>
 
-  <div class="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 md:mt-20 lg:mt-24 md:gap-x-6 md:gap-y-10 md:grid-cols-4">
-    {
-      facts.map((f) => (
-        <div class="border-t border-olive/30 pt-4" data-stagger>
-          <div class="label-mono opacity-50">
-            {f.k}
-          </div>
-          <div class="mt-1 font-display text-base leading-snug md:mt-2 md:text-xl">{f.v}</div>
-        </div>
-      ))
-    }
+  <Figure
+    src={land}
+    alt="Sunlit barley cover crop moving in the wind on the upper terraces"
+    ratio="wide"
+    caption="Cover crop on the upper terraces"
+    overlay
+    class="land-figure"
+  >
+    <div class="land-altitude" aria-hidden="true">
+      <strong>{site.altitude}</strong>
+      <span class="meta">metres</span>
+    </div>
+    <span slot="meta">
+      {site.coordinates.lat} · {site.coordinates.lng}
+    </span>
+  </Figure>
+
+  <div class="shell">
+    <Facts items={landFacts} class="land-facts" />
   </div>
-</Section>
+</section>

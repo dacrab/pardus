@@ -1,0 +1,20 @@
+---
+interface Props {
+  items: readonly { readonly label: string; readonly value: string }[];
+  /** Number of columns at desktop width. */
+  columns?: 2 | 3 | 4;
+  variant?: "grid" | "rows";
+  class?: string;
+}
+
+const { items, columns = 4, variant = "grid", class: className } = Astro.props;
+---
+
+<dl class:list={["facts", `facts--${variant}`, `facts--${columns}`, className]}>
+  {items.map((item) => (
+    <div class="fact">
+      <dt class="meta">{item.label}</dt>
+      <dd>{item.value}</dd>
+    </div>
+  ))}
+</dl>
