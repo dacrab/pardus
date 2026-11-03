@@ -129,9 +129,17 @@ h3 {
   text-wrap: pretty;
 }
 
-.meta {
+.meta,
+.btn,
+.link-arrow,
+.skip-link,
+.step-num,
+.manifesto-sign {
   font-family: var(--mono);
   font-size: 0.6875rem;
+}
+
+.meta {
   line-height: 1.5;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -251,8 +259,6 @@ h3 {
   border: 1px solid var(--ink);
   background: var(--ink);
   color: var(--bone);
-  font-family: var(--mono);
-  font-size: 0.6875rem;
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -288,8 +294,6 @@ h3 {
   gap: 0.7rem;
   padding-bottom: 0.45rem;
   border-bottom: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 0.6875rem;
   line-height: 1;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -331,8 +335,6 @@ h3 {
   padding: 0.9rem 1.1rem;
   background: var(--ink);
   color: var(--bone);
-  font-family: var(--mono);
-  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   transform: translateY(-200%);
@@ -666,25 +668,14 @@ html:has(dialog[open]) {
 /* Facts */
 
 .facts {
+  --cols: 2;
   display: grid;
-  grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
   gap: 0;
 }
 
 .facts--rows {
   display: block;
-}
-
-.facts--2 {
-  --cols: 2;
-}
-
-.facts--3 {
-  --cols: 2;
-}
-
-.facts--4 {
-  --cols: 2;
 }
 
 .fact {
@@ -745,9 +736,13 @@ html:has(dialog[open]) {
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
+.land-facts .fact dd,
+.estate-facts .fact dd {
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+}
+
 .land-facts .fact dd {
   max-width: 22ch;
-  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
   line-height: 1.2;
 }
 
@@ -758,13 +753,7 @@ html:has(dialog[open]) {
 
 /* Estate and Manifesto */
 
-.estate-facts .fact dd {
-  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
-}
-
 .manifesto-sign {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -915,8 +904,6 @@ figure {
 }
 
 .step-num {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   color: var(--clay-light);
 }
