@@ -1,93 +1,46 @@
 # PARDUS
 
-The website for PARDUS, a fictional natural-wine project on the western slopes of an Aegean island. Built as a type-led editorial site: one vineyard, four wines, and no unnecessary machinery.
+The website for PARDUS, a fictional natural-wine estate on an Aegean island.
 
-## Stack
+**Live demo:** https://pardus-lemon.vercel.app
 
-- [Astro 7](https://astro.build) with static output
-- Semantic CSS and custom properties — no utility framework
-- Self-hosted variable fonts via [Fontsource](https://fontsource.org) — only the Latin subset of each face is bundled
-- Native `<dialog>`, CSS scroll behaviour, and `IntersectionObserver`
-- Local WebP imagery processed through Astro's image pipeline
-- Canonical URLs, Open Graph metadata, and `Winery` structured data
+A single long page that tells the story of one vineyard: the estate, the land, four wines, how they're made, and how to visit. It's a type-led editorial site — no shop, no pop-ups, nothing to click through. Just scroll.
 
-There is no client-side framework, animation library, smooth-scroll hijack, or custom cursor.
+## Features
 
-## Getting started
+- A slow, section-by-section walkthrough of the estate
+- Four wines with varietal, vintage, and tasting notes
+- Key facts: 612 m altitude, 3.2 hectares, 3,120 bottles a year
+- A quiet map of the island and its coordinates
+- A visit section with contact details
+- A mobile menu and anchor navigation that highlights where you are
+- Respects reduced-motion settings
 
-Requires Node 22.23.4 or newer and [Bun](https://bun.sh).
+## Run it locally
 
-```sh
+You'll need [Bun](https://bun.sh) and Node 22.23.4 or newer.
+
+```bash
 bun install
 bun run dev       # http://localhost:4321
 ```
 
-| Script                 | Purpose                                 |
-| ---------------------- | --------------------------------------- |
-| `bun run dev`          | Start the development server            |
-| `bun run build`        | Build the static site into `dist/`      |
-| `bun run preview`      | Preview the production build            |
-| `bun run check`        | Run Astro and TypeScript diagnostics    |
-| `bun run format`       | Format the repository with Prettier     |
-| `bun run format:check` | Verify formatting without writing files |
+To build the static site:
 
-## Structure
-
-```text
-src/
-  assets/            Local WebP photography, imported through astro:assets
-  components/        Page sections and shared UI primitives (see below)
-  data/site.ts       Single source of truth: identity, nav, facts, wines, process, visit
-  layouts/           Document shell, metadata, structured data, reveal script
-  pages/             index.astro and 404.astro
-  styles/global.css  Tokens, type roles, layout, components, responsive rules, motion
-public/
-  favicon.svg
-  apple-touch-icon.png
-  og.png             1200 × 630 social card
-  robots.txt
+```bash
+bun run build     # output in dist/
 ```
 
-Content changes should start in `src/data/site.ts`. Wine entries, navigation, facts, visit details, and the JSON-LD address/geo all derive from that file. Section prose lives in the matching component under `src/components/`.
+## Good to know
 
-Shared primitives keep the section components thin:
+- PARDUS is a fictional estate. Any resemblance to an actual winery is coincidental.
+- Copy, wines, and visit details all come from `src/data/site.ts` — the easiest place to make changes.
+- Photography is from Unsplash, cropped and graded for this project.
+- The output is fully static, so it can be hosted anywhere.
 
-| Component             | Responsibility                                                                |
-| --------------------- | ----------------------------------------------------------------------------- |
-| Section components    | `Hero`, `Estate`, `Manifesto`, `Land`, `Wines`, `Process`, `Visit` — one each |
-| `SectionHeader.astro` | Section label plus `h2`/lede slot                                             |
-| `Figure.astro`        | Responsive image, ratio presets, optional caption and overlay                 |
-| `Facts.astro`         | Definition list in `grid` or `rows` layout, 2–4 columns                       |
-| `Brand.astro`         | Dot and wordmark, rendered as link when `href` is passed                      |
-| `ArrowLink.astro`     | Underlined call to action; the arrow is drawn by CSS                          |
-| `Header.astro`        | Fixed header, desktop nav, `<dialog>` menu, scroll-spy                        |
-| `Footer.astro`        | Letter sign-up, link columns, legal row, SVG wordmark                         |
+## Built with
 
-## Design notes
-
-The visual system uses three materials rather than a conventional brand palette:
-
-- **Bone** `#f2ecdf` and **paper** `#faf7f0` for the page
-- **Ink** `#17130f` for type and dark sections
-- **Clay** `#a8482a` for accents, with olive `#34382a` for the process section
-
-Fraunces carries the display voice; Instrument Sans handles reading text; JetBrains Mono is reserved for labels and metadata through a single `.meta` class. Type has four roles — display, `.h2`, `.lede`, and `.meta` — and no others. Motion is limited to a short entrance reveal, link underlines, and image scale on hover. All of it is disabled under `prefers-reduced-motion`.
-
-The stylesheet is mobile-first with exactly three breakpoints: `48rem` (tablet: nav appears, facts gain columns), `64rem` (desktop: split layouts, sticky figures), and `80rem` (wide: footer columns). Below `48rem` the navigation is a modal `<dialog>` so focus management, Escape handling, and the backdrop come from the platform.
-
-## Metadata and deployment
-
-Set the production origin in `astro.config.mjs` (`site`). Canonical URLs, Open Graph tags, and the JSON-LD record are generated in `src/layouts/BaseLayout.astro`.
-
-The output is fully static. Deploy `dist/` to any static host.
-
-## Credits
-
-- Photography via [Unsplash](https://unsplash.com), cropped and graded to a warm monochrome for this project.
-- Typefaces: [Fraunces](https://fonts.google.com/specimen/Fraunces), [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans), and [JetBrains Mono](https://fonts.google.com/specimen/JetBrains+Mono), all licensed under the SIL Open Font License.
-- Concept and build by [@dacrab](https://github.com/dacrab).
-
-PARDUS is a fictional estate. Any resemblance to an actual winery is coincidental.
+Astro, plain CSS, and self-hosted variable fonts.
 
 ## License
 
